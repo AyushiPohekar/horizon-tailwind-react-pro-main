@@ -4,6 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @layer base {
 	html {
 		font-family: 'DM Sans', sans-serif !important;
@@ -34,4 +35,17 @@ input.defaultCheckbox::before path {
 
 input:checked.defaultCheckbox::before { 
 	opacity: 1;
+}
+.modal{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	z-index: 1;
+}
+.button{
+	top:8%;
+	left:90%;
+	position: absolute;
+	cursor: pointer;
 }

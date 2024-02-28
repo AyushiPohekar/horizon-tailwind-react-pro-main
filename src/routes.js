@@ -4,6 +4,8 @@ import {
   MdLock,
   MdOutlineShoppingCart,
 } from "react-icons/md";
+import { FaBusinessTime } from "react-icons/fa6";
+import { SiCodereview } from "react-icons/si";
 
 // Admin Imports
 import DashboardsDefault from "views/admin/dashboards/default";
@@ -35,7 +37,7 @@ import ProfileNewsfeed from "views/admin/main/profile/newsfeed";
 
 import ApplicationsKanban from "views/admin/main/applications/kanban";
 import ApplicationsDataTables from "views/admin/main/applications/dataTables";
-// import ApplicationsCalendar from "views/admin/main/applications/calendar";
+//import ApplicationsCalendar from "views/admin/main/applications/calendar";
 
 import EcommerceNewProduct from "views/admin/main/ecommerce/newProduct";
 import EcommerceProductSettings from "views/admin/main/ecommerce/settingsProduct";
@@ -63,6 +65,11 @@ import SignUpCentered from "views/auth/signUp/SignUpCenter.jsx";
 import SignUpDefault from "views/auth/signUp/SignUpDefault.jsx";
 import VerificationCentered from "views/auth/verification/VerificationCenter.jsx";
 import VerificationDefault from "views/auth/verification/VerificationDefault.jsx";
+import Business from "views/admin/main/business-info";
+import Review from "views/admin/main/Reputation/Review";
+import ReviewMe from "views/admin/main/Reputation/ReviewMe";
+import Contact2 from "views/admin/main/marketing/Contact";
+import Email from "views/admin/main/marketing/Email/Email";
 
 const routes = [
   // {
@@ -141,384 +148,436 @@ const routes = [
     ],
   },
   // --- NFTs ---
+  // {
+  //   name: "NFTs",
+  //   path: "/nfts",
+  //   icon: <MdOutlineShoppingCart className="text-inherit h-5 w-5" />,
+  //   collapse: true,
+  //   items: [
+  //     {
+  //       name: "Marketplace",
+  //       layout: "/admin",
+  //       path: "/nfts/marketplace",
+  //       component: <NFTMarketplace />,
+  //       secondary: true,
+  //     },
+  //     {
+  //       name: "Collection",
+  //       layout: "/admin",
+  //       path: "/nfts/collection",
+  //       component: <NFTCollection />,
+  //       secondary: true,
+  //     },
+  //     {
+  //       name: "NFT Page",
+  //       layout: "/admin",
+  //       path: "/nfts/page",
+  //       component: <NFTPage />,
+  //       secondary: true,
+  //     },
+  //     {
+  //       name: "Profile",
+  //       layout: "/admin",
+  //       path: "/nfts/profile",
+  //       component: <NFTProfile />,
+  //       secondary: true,
+  //     },
+  //   ],
+  // },
   {
-    name: "NFTs",
-    path: "/nfts",
-    icon: <MdOutlineShoppingCart className="text-inherit h-5 w-5" />,
+    name: "Business-info",
+        layout: "/admin",
+        path: "/nfts/business-info",
+        component: <Business />,
+        icon: <FaBusinessTime className="text-inherit h-5 w-5" />,
+        secondary: true,
+
+  },
+  {
+    name: "Reputation",
+    path: "/reputation",
     collapse: true,
+    icon: <SiCodereview className="text-inherit h-5 w-5" />,
     items: [
       {
-        name: "Marketplace",
+        name: "Review",
         layout: "/admin",
-        path: "/nfts/marketplace",
-        component: <NFTMarketplace />,
-        secondary: true,
+        path: "/main/reputation/review",
+        exact: false,
+        component: <Review />,
       },
       {
-        name: "Collection",
+        name: "Review me",
         layout: "/admin",
-        path: "/nfts/collection",
-        component: <NFTCollection />,
-        secondary: true,
+        path: "/main/reputation/reviewme",
+        exact: false,
+        component: <ReviewMe />,
+      }]
+    },
+    {
+      name: "Marketing",
+      path: "/marketing",
+      collapse: true,
+      icon: <SiCodereview className="text-inherit h-5 w-5" />,
+      items: [
+        {
+          name: "Contacts",
+          layout: "/admin",
+          path: "/main/marketing/contact",
+          exact: false,
+          component: <Contact2 />,
+        },
+        {
+          name: "Email",
+          layout: "/admin",
+          path: "/main/marketing/email",
+          exact: false,
+          component: <Email />,
+        }]
       },
-      {
-        name: "NFT Page",
-        layout: "/admin",
-        path: "/nfts/page",
-        component: <NFTPage />,
-        secondary: true,
-      },
-      {
-        name: "Profile",
-        layout: "/admin",
-        path: "/nfts/profile",
-        component: <NFTProfile />,
-        secondary: true,
-      },
-    ],
-  },
+  
   // --- Main pages ---
-  {
-    name: "Main Pages",
-    path: "/main",
-    icon: <MdDashboard className="text-inherit h-5 w-5" />,
-    collapse: true,
-    items: [
-      {
-        name: "Account",
-        path: "/main/account",
-        collapse: true,
-        items: [
-          {
-            name: "Billing",
-            layout: "/admin",
-            path: "/main/account/billing",
-            exact: false,
-            component: <AccountBilling />,
-          },
-          {
-            name: "Application",
-            layout: "/admin",
-            path: "/main/account/application",
-            exact: false,
-            component: <AccountApplications />,
-          },
-          {
-            name: "Invoice",
-            layout: "/admin",
-            path: "/main/account/invoice",
-            exact: false,
-            component: <AccountInvoice />,
-          },
-          {
-            name: "Settings",
-            layout: "/admin",
-            path: "/main/account/settings",
-            exact: false,
-            component: <AccountSettings />,
-          },
-          {
-            name: "All Courses",
-            layout: "/admin",
-            path: "/main/account/all-courses",
-            exact: false,
-            component: <AccountAllCourses />,
-          },
-          {
-            name: "Course Page",
-            layout: "/admin",
-            path: "/main/account/course-page",
-            exact: false,
-            component: <AccountCoursePage />,
-          },
-        ],
-      },
-      {
-        name: "Ecommerce",
-        path: "/ecommerce",
-        collapse: true,
-        items: [
-          {
-            name: "New Product",
-            layout: "/admin",
-            path: "/main/ecommerce/new-prodcut",
-            exact: false,
-            component: <EcommerceNewProduct />,
-          },
-          {
-            name: "Product Settings",
-            layout: "/admin",
-            path: "/main/ecommerce/settings",
-            exact: false,
-            component: <EcommerceProductSettings />,
-          },
-          {
-            name: "Product Page",
-            layout: "/admin",
-            path: "/main/ecommerce/page-example",
-            exact: false,
-            component: <EcommerceProductPage />,
-          },
-          {
-            name: "Order List",
-            layout: "/admin",
-            path: "/main/ecommerce/order-list",
-            exact: false,
-            component: <EcommerceOrderList />,
-          },
-          {
-            name: "Order Details",
-            layout: "/admin",
-            path: "/main/ecommerce/order-details",
-            exact: false,
-            component: <EcommerceOrderDetails />,
-          },
-          {
-            name: "Referrals",
-            layout: "/admin",
-            path: "/main/ecommerce/referrals",
-            exact: false,
-            component: <EcommerceReferrals />,
-          },
-        ],
-      },
-      {
-        name: "Users",
-        path: "/main/users",
-        collapse: true,
-        items: [
-          {
-            name: "New User",
-            layout: "/admin",
-            path: "/main/users/new-user",
-            exact: false,
-            component: <UserNew />,
-          },
-          {
-            name: "Users Overview",
-            layout: "/admin",
-            path: "/main/users/users-overview",
-            exact: false,
-            component: <UsersOverview />,
-          },
-          {
-            name: "Users Reports",
-            layout: "/admin",
-            path: "/main/users/users-reports",
-            exact: false,
-            component: <UsersReports />,
-          },
-        ],
-      },
-      {
-        name: "Applications",
-        path: "/main/applications",
-        collapse: true,
-        items: [
-          {
-            name: "Kanban",
-            layout: "/admin",
-            path: "/main/applications/kanban",
-            exact: false,
-            component: <ApplicationsKanban />,
-          },
-          {
-            name: "Data Tables",
-            layout: "/admin",
-            path: "/main/applications/data-tables",
-            exact: false,
-            component: <ApplicationsDataTables />,
-          },
-          // {
-          //   name: "Calendar",
-          //   layout: "/admin",
-          //   path: "/main/applications/calendar",
-          //   exact: false,
-          //   component: <ApplicationsCalendar />,
-          // },
-        ],
-      },
-      {
-        name: "Profile",
-        path: "/main/profile",
-        collapse: true,
-        items: [
-          {
-            name: "Profile Overview",
-            layout: "/admin",
-            path: "/main/profile/overview",
-            exact: false,
-            component: <ProfileOverview />,
-          },
-          {
-            name: "Profile Settings",
-            layout: "/admin",
-            path: "/main/profile/settings",
-            exact: false,
-            component: <ProfileSettings />,
-          },
-          {
-            name: "News Feed",
-            layout: "/admin",
-            path: "/main/profile/newsfeed",
-            exact: false,
-            component: <ProfileNewsfeed />,
-          },
-        ],
-      },
-      {
-        name: "Others",
-        path: "/main/others",
-        collapse: true,
-        items: [
-          {
-            name: "Notifications",
-            layout: "/admin",
-            path: "/main/others/notifications",
-            exact: false,
-            component: <OthersNotifications />,
-          },
-          {
-            name: "Pricing",
-            layout: "/auth",
-            path: "/main/others/pricing",
-            exact: false,
-            component: <OthersPricing />,
-          },
-          {
-            name: "404",
-            layout: "/admin",
-            path: "/main/others/404",
-            exact: false,
-            component: <OthersError />,
-          },
-          {
-            name: "Buttons",
-            layout: "/admin",
-            path: "/main/others/buttons",
-            exact: false,
-            component: <Buttons />,
-          },
-          {
-            name: "Messages",
-            layout: "/admin",
-            path: "/main/others/messages",
-            exact: false,
-            component: <Messages />,
-          },
-        ],
-      },
-    ],
-  },
-  // --- Authentication ---
-  {
-    name: "Authentication",
-    path: "/auth",
-    icon: <MdLock className="text-inherit h-5 w-5" />,
-    collapse: true,
-    items: [
-      // --- Sign In ---
-      {
-        name: "Sign In",
-        path: "/sign-in",
-        collapse: true,
-        items: [
-          {
-            name: "Default",
-            layout: "/auth",
-            path: "/sign-in/default",
-            component: <SignInDefault />,
-          },
-          {
-            name: "Centered",
-            layout: "/auth",
-            path: "/sign-in/centered",
-            component: <SignInCentered />,
-          },
-        ],
-      },
-      // --- Sign Up ---
-      {
-        name: "Sign Up",
-        path: "/sign-up",
-        collapse: true,
-        items: [
-          {
-            name: "Default",
-            layout: "/auth",
-            path: "/sign-up/default",
-            component: <SignUpDefault />,
-          },
-          {
-            name: "Centered",
-            layout: "/auth",
-            path: "/sign-up/centered",
-            component: <SignUpCentered />,
-          },
-        ],
-      },
-      // --- Verification ---
-      {
-        name: "Verification",
-        path: "/verification",
-        collapse: true,
-        items: [
-          {
-            name: "Default",
-            layout: "/auth",
-            path: "/verification/default",
-            component: <VerificationDefault />,
-          },
-          {
-            name: "Centered",
-            layout: "/auth",
-            path: "/verification/centered",
-            component: <VerificationCentered />,
-          },
-        ],
-      },
-      // --- Lock ---
-      {
-        name: "Lock",
-        path: "/lock",
-        collapse: true,
-        items: [
-          {
-            name: "Default",
-            layout: "/auth",
-            path: "/lock/default",
-            component: <LockDefault />,
-          },
-          {
-            name: "Centered",
-            layout: "/auth",
-            path: "/lock/centered",
-            component: <LockCentered />,
-          },
-        ],
-      },
-      // --- Forgot Password ---
-      {
-        name: "Forgot Password",
-        path: "/forgot-password",
-        collapse: true,
-        items: [
-          {
-            name: "Default",
-            layout: "/auth",
-            path: "/forgot-password/default",
-            component: <ForgotPasswordDefault />,
-          },
-          {
-            name: "Centered",
-            layout: "/auth",
-            path: "/forgot-password/centered",
-            component: <ForgotPasswordCentered />,
-          },
-        ],
-      },
-    ],
-  },
+  // {
+  //   name: "Main Pages",
+  //   path: "/main",
+  //   icon: <MdDashboard className="text-inherit h-5 w-5" />,
+  //   collapse: true,
+  //   items: [
+  //     {
+  //       name: "Account",
+  //       path: "/main/account",
+  //       collapse: true,
+  //       items: [
+  //         {
+  //           name: "Billing",
+  //           layout: "/admin",
+  //           path: "/main/account/billing",
+  //           exact: false,
+  //           component: <AccountBilling />,
+  //         },
+  //         {
+  //           name: "Application",
+  //           layout: "/admin",
+  //           path: "/main/account/application",
+  //           exact: false,
+  //           component: <AccountApplications />,
+  //         },
+  //         {
+  //           name: "Invoice",
+  //           layout: "/admin",
+  //           path: "/main/account/invoice",
+  //           exact: false,
+  //           component: <AccountInvoice />,
+  //         },
+  //         {
+  //           name: "Settings",
+  //           layout: "/admin",
+  //           path: "/main/account/settings",
+  //           exact: false,
+  //           component: <AccountSettings />,
+  //         },
+  //         {
+  //           name: "All Courses",
+  //           layout: "/admin",
+  //           path: "/main/account/all-courses",
+  //           exact: false,
+  //           component: <AccountAllCourses />,
+  //         },
+  //         {
+  //           name: "Course Page",
+  //           layout: "/admin",
+  //           path: "/main/account/course-page",
+  //           exact: false,
+  //           component: <AccountCoursePage />,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: "Reputation Management",
+  //       path: "/reputation",
+  //       collapse: true,
+  //       items: [
+  //         {
+  //           name: "Review",
+  //           layout: "/admin",
+  //           path: "/main/reputation/review",
+  //           exact: false,
+  //           component: <Review />,
+  //         },
+  //         {
+  //           name: "Review me",
+  //           layout: "/admin",
+  //           path: "/main/reputation/reviewme",
+  //           exact: false,
+  //           component: <EcommerceProductSettings />,
+  //         },
+  //         {
+  //           name: "Product Page",
+  //           layout: "/admin",
+  //           path: "/main/ecommerce/page-example",
+  //           exact: false,
+  //           component: <EcommerceProductPage />,
+  //         },
+  //         {
+  //           name: "Order List",
+  //           layout: "/admin",
+  //           path: "/main/ecommerce/order-list",
+  //           exact: false,
+  //           component: <EcommerceOrderList />,
+  //         },
+  //         {
+  //           name: "Order Details",
+  //           layout: "/admin",
+  //           path: "/main/ecommerce/order-details",
+  //           exact: false,
+  //           component: <EcommerceOrderDetails />,
+  //         },
+  //         {
+  //           name: "Referrals",
+  //           layout: "/admin",
+  //           path: "/main/ecommerce/referrals",
+  //           exact: false,
+  //           component: <EcommerceReferrals />,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: "Users",
+  //       path: "/main/users",
+  //       collapse: true,
+  //       items: [
+  //         {
+  //           name: "New User",
+  //           layout: "/admin",
+  //           path: "/main/users/new-user",
+  //           exact: false,
+  //           component: <UserNew />,
+  //         },
+  //         {
+  //           name: "Users Overview",
+  //           layout: "/admin",
+  //           path: "/main/users/users-overview",
+  //           exact: false,
+  //           component: <UsersOverview />,
+  //         },
+  //         {
+  //           name: "Users Reports",
+  //           layout: "/admin",
+  //           path: "/main/users/users-reports",
+  //           exact: false,
+  //           component: <UsersReports />,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: "Applications",
+  //       path: "/main/applications",
+  //       collapse: true,
+  //       items: [
+  //         {
+  //           name: "Kanban",
+  //           layout: "/admin",
+  //           path: "/main/applications/kanban",
+  //           exact: false,
+  //           component: <ApplicationsKanban />,
+  //         },
+  //         {
+  //           name: "Data Tables",
+  //           layout: "/admin",
+  //           path: "/main/applications/data-tables",
+  //           exact: false,
+  //           component: <ApplicationsDataTables />,
+  //         },
+  //         // {
+  //         //   name: "Calendar",
+  //         //   layout: "/admin",
+  //         //   path: "/main/applications/calendar",
+  //         //   exact: false,
+  //         //   component: <ApplicationsCalendar />,
+  //         // },
+  //       ],
+  //     },
+  //     {
+  //       name: "Profile",
+  //       path: "/main/profile",
+  //       collapse: true,
+  //       items: [
+  //         {
+  //           name: "Profile Overview",
+  //           layout: "/admin",
+  //           path: "/main/profile/overview",
+  //           exact: false,
+  //           component: <ProfileOverview />,
+  //         },
+  //         {
+  //           name: "Profile Settings",
+  //           layout: "/admin",
+  //           path: "/main/profile/settings",
+  //           exact: false,
+  //           component: <ProfileSettings />,
+  //         },
+  //         {
+  //           name: "News Feed",
+  //           layout: "/admin",
+  //           path: "/main/profile/newsfeed",
+  //           exact: false,
+  //           component: <ProfileNewsfeed />,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: "Others",
+  //       path: "/main/others",
+  //       collapse: true,
+  //       items: [
+  //         {
+  //           name: "Notifications",
+  //           layout: "/admin",
+  //           path: "/main/others/notifications",
+  //           exact: false,
+  //           component: <OthersNotifications />,
+  //         },
+  //         {
+  //           name: "Pricing",
+  //           layout: "/auth",
+  //           path: "/main/others/pricing",
+  //           exact: false,
+  //           component: <OthersPricing />,
+  //         },
+  //         {
+  //           name: "404",
+  //           layout: "/admin",
+  //           path: "/main/others/404",
+  //           exact: false,
+  //           component: <OthersError />,
+  //         },
+  //         {
+  //           name: "Buttons",
+  //           layout: "/admin",
+  //           path: "/main/others/buttons",
+  //           exact: false,
+  //           component: <Buttons />,
+  //         },
+  //         {
+  //           name: "Messages",
+  //           layout: "/admin",
+  //           path: "/main/others/messages",
+  //           exact: false,
+  //           component: <Messages />,
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
+  // // --- Authentication ---
+  // {
+  //   name: "Authentication",
+  //   path: "/auth",
+  //   icon: <MdLock className="text-inherit h-5 w-5" />,
+  //   collapse: true,
+  //   items: [
+  //     // --- Sign In ---
+  //     {
+  //       name: "Sign In",
+  //       path: "/sign-in",
+  //       collapse: true,
+  //       items: [
+  //         {
+  //           name: "Default",
+  //           layout: "/auth",
+  //           path: "/sign-in/default",
+  //           component: <SignInDefault />,
+  //         },
+  //         {
+  //           name: "Centered",
+  //           layout: "/auth",
+  //           path: "/sign-in/centered",
+  //           component: <SignInCentered />,
+  //         },
+  //       ],
+  //     },
+  //     // --- Sign Up ---
+  //     {
+  //       name: "Sign Up",
+  //       path: "/sign-up",
+  //       collapse: true,
+  //       items: [
+  //         {
+  //           name: "Default",
+  //           layout: "/auth",
+  //           path: "/sign-up/default",
+  //           component: <SignUpDefault />,
+  //         },
+  //         {
+  //           name: "Centered",
+  //           layout: "/auth",
+  //           path: "/sign-up/centered",
+  //           component: <SignUpCentered />,
+  //         },
+  //       ],
+  //     },
+  //     // --- Verification ---
+  //     {
+  //       name: "Verification",
+  //       path: "/verification",
+  //       collapse: true,
+  //       items: [
+  //         {
+  //           name: "Default",
+  //           layout: "/auth",
+  //           path: "/verification/default",
+  //           component: <VerificationDefault />,
+  //         },
+  //         {
+  //           name: "Centered",
+  //           layout: "/auth",
+  //           path: "/verification/centered",
+  //           component: <VerificationCentered />,
+  //         },
+  //       ],
+  //     },
+  //     // --- Lock ---
+  //     {
+  //       name: "Lock",
+  //       path: "/lock",
+  //       collapse: true,
+  //       items: [
+  //         {
+  //           name: "Default",
+  //           layout: "/auth",
+  //           path: "/lock/default",
+  //           component: <LockDefault />,
+  //         },
+  //         {
+  //           name: "Centered",
+  //           layout: "/auth",
+  //           path: "/lock/centered",
+  //           component: <LockCentered />,
+  //         },
+  //       ],
+  //     },
+  //     // --- Forgot Password ---
+  //     {
+  //       name: "Forgot Password",
+  //       path: "/forgot-password",
+  //       collapse: true,
+  //       items: [
+  //         {
+  //           name: "Default",
+  //           layout: "/auth",
+  //           path: "/forgot-password/default",
+  //           component: <ForgotPasswordDefault />,
+  //         },
+  //         {
+  //           name: "Centered",
+  //           layout: "/auth",
+  //           path: "/forgot-password/centered",
+  //           component: <ForgotPasswordCentered />,
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
   // {
   // 	name: 'RTL Admin',
   // 	layout: '/rtl',
