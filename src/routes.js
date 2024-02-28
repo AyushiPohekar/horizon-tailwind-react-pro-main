@@ -63,6 +63,8 @@ import SignUpCentered from "views/auth/signUp/SignUpCenter.jsx";
 import SignUpDefault from "views/auth/signUp/SignUpDefault.jsx";
 import VerificationCentered from "views/auth/verification/VerificationCenter.jsx";
 import VerificationDefault from "views/auth/verification/VerificationDefault.jsx";
+import Organic from "views/admin/dashboards/organic";
+import Paid from "views/admin/dashboards/paid";
 
 const routes = [
   // {
@@ -109,31 +111,43 @@ const routes = [
   // },
   // --- Dashboards ---
   {
-    name: "Dashboards",
+    name: "Home",
     path: "/dashboards",
     icon: <MdHome className="text-inherit h-5 w-5" />,
     collapse: true,
     items: [
       {
-        name: "Main Dashboard",
+        name: "Dashboard",
         layout: "/admin",
         path: "/dashboards/default",
         component: <DashboardsDefault />,
       },
+      // {
+      //   name: "Organic",
+      //   layout: "/admin",
+      //   path: "/dashboards/car-interface",
+      //   component: <DashboardsCarInterface />,
+      // },
       {
-        name: "Car Interface",
+        name: "Organic",
         layout: "/admin",
-        path: "/dashboards/car-interface",
-        component: <DashboardsCarInterface />,
+        path: "/dashboards/organic",
+        component: <Organic />,
+      },
+      // {
+      //   name: "Paid",
+      //   layout: "/admin",
+      //   path: "/dashboards/smart-home",
+      //   component: <DashboardsSmartHome />,
+      // },
+      {
+        name: "Paid",
+        layout: "/admin",
+        path: "/dashboards/paid",
+        component: <Paid />,
       },
       {
-        name: "Smart Home",
-        layout: "/admin",
-        path: "/dashboards/smart-home",
-        component: <DashboardsSmartHome />,
-      },
-      {
-        name: "RTL",
+        name: "Verified New Links",
         layout: "/rtl",
         path: "/dashboards/rtl",
         component: <DashboardsRTLDefault />,
@@ -142,7 +156,7 @@ const routes = [
   },
   // --- NFTs ---
   {
-    name: "NFTs",
+    name: "SEO Insights",
     path: "/nfts",
     icon: <MdOutlineShoppingCart className="text-inherit h-5 w-5" />,
     collapse: true,
@@ -179,7 +193,7 @@ const routes = [
   },
   // --- Main pages ---
   {
-    name: "Main Pages",
+    name: "Business Listings",
     path: "/main",
     icon: <MdDashboard className="text-inherit h-5 w-5" />,
     collapse: true,

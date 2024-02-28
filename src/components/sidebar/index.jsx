@@ -86,14 +86,14 @@ function SidebarHorizon(props) {
             </div>
             {/* Free Horizon Card    */}
             <div className="mt-[28px] mb-[30px]">
-              <div className="flex justify-center">
+              {/* <div className="flex justify-center">
                 <SidebarCard mini={mini} hovered={hovered} />
-              </div>
+              </div> */}
               {/* Sidebar profile info */}
               <div className="mt-5 flex items-center justify-center gap-3">
-                <div className="h-12 w-12 rounded-full bg-blue-200">
+                {/* <div className="h-12 w-12 rounded-full bg-blue-200">
                   <img src={avatar4} className="rounded-full" alt="avatar" />
-                </div>
+                </div> */}
                 <div
                   className={`ml-1 ${
                     mini === false
@@ -103,12 +103,12 @@ function SidebarHorizon(props) {
                       : "block xl:hidden"
                   }`}
                 >
-                  <h4 className="text-base font-bold text-navy-700 dark:text-white">
+                  {/* <h4 className="text-base font-bold text-navy-700 dark:text-white">
                     Adela Parkson
                   </h4>
                   <p className="text-sm font-medium text-gray-600">
                     Product Designer
-                  </p>
+                  </p> */}
                 </div>
               </div>
             </div>
