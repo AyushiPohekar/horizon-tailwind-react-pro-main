@@ -1,18 +1,18 @@
-import React from "react";
-import Dropdown from "components/dropdown";
-import { FiAlignJustify } from "react-icons/fi";
-import { Link } from "react-router-dom";
-import navbarimage from "assets/img/layout/Navbar.png";
-import { BsArrowBarUp } from "react-icons/bs";
-import { FiSearch } from "react-icons/fi";
-import Configurator from "./Configurator";
+import React from 'react';
+import Dropdown from 'components/dropdown';
+import { FiAlignJustify } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
+import navbarimage from 'assets/img/layout/Navbar.png';
+import { BsArrowBarUp } from 'react-icons/bs';
+import { FiSearch } from 'react-icons/fi';
+import Configurator from './Configurator';
 // import { RiMoonFill, RiSunFill } from 'react-icons/ri';
 // import Configurator from './Configurator';
 import {
   IoMdNotificationsOutline,
   IoMdInformationCircleOutline,
-} from "react-icons/io";
-import avatar from "assets/img/avatars/avatar4.png";
+} from 'react-icons/io';
+import avatar from 'assets/img/avatars/avatar4.png';
 
 const Navbar = (props) => {
   const {
@@ -25,21 +25,21 @@ const Navbar = (props) => {
     hovered,
   } = props;
   const [darkmode, setDarkmode] = React.useState(
-    document.body.classList.contains("dark")
+    document.body.classList.contains('dark')
   );
   return (
     <nav
-      className={`duration-175 linear fixed top-3 right-3 flex flex-row flex-wrap items-center justify-between rounded-xl bg-white/30 transition-all ${
+      className={`duration-175 linear fixed right-3 top-3 flex flex-row flex-wrap items-center justify-between rounded-xl bg-white/30 transition-all ${
         mini === false
-          ? "w-[calc(100vw_-_6%)] md:w-[calc(100vw_-_8%)] lg:w-[calc(100vw_-_6%)] xl:w-[calc(100vw_-_350px)] 2xl:w-[calc(100vw_-_365px)]"
+          ? 'w-[calc(100vw_-_6%)] md:w-[calc(100vw_-_8%)] lg:w-[calc(100vw_-_6%)] xl:w-[calc(100vw_-_350px)] 2xl:w-[calc(100vw_-_365px)]'
           : mini === true && hovered === true
-          ? "w-[calc(100vw_-_6%)] md:w-[calc(100vw_-_8%)] lg:w-[calc(100vw_-_6%)] xl:w-[calc(100vw_-_350px)] 2xl:w-[calc(100vw_-_365px)]"
-          : "w-[calc(100vw_-_6%)] md:w-[calc(100vw_-_8%)] lg:w-[calc(100vw_-_6%)] xl:w-[calc(100vw_-_180px)] 2xl:w-[calc(100vw_-_195px)]"
-      }  p-2 backdrop-blur-xl dark:bg-[#0b14374d] md:top-4 md:right-[30px] xl:top-[20px]`}
+          ? 'w-[calc(100vw_-_6%)] md:w-[calc(100vw_-_8%)] lg:w-[calc(100vw_-_6%)] xl:w-[calc(100vw_-_350px)] 2xl:w-[calc(100vw_-_365px)]'
+          : 'w-[calc(100vw_-_6%)] md:w-[calc(100vw_-_8%)] lg:w-[calc(100vw_-_6%)] xl:w-[calc(100vw_-_180px)] 2xl:w-[calc(100vw_-_195px)]'
+      }  p-2 backdrop-blur-xl dark:bg-[#0b14374d] md:right-[30px] md:top-4 xl:top-[20px]`}
     >
       <div className="ml-[6px]">
-        <div className="h-6 w-[224px] pt-1">
-          <a
+        <div className="h-6  pt-1">
+          {/* <a
             className="text-sm font-normal text-navy-700 hover:underline dark:text-white dark:hover:text-white"
             href=" "
           >
@@ -48,21 +48,26 @@ const Navbar = (props) => {
               {" "}
               /{" "}
             </span>
-          </a>
-          <Link
+          </a> */}
+          {/* <Link
             className="text-sm font-normal capitalize text-navy-700 hover:underline dark:text-white dark:hover:text-white"
             to="#"
           >
             {brandText}
-          </Link>
+          </Link> */}
+          
+            {/* <div class="text-black text-xl font-normal text-navy-700 w-full">
+              Good day, Chess House Dental Practice
+            </div> */}
+         
         </div>
         <p className="shrink text-[33px] capitalize text-navy-700 dark:text-white">
-          <Link
-            to="#"
+          <div
+           
             className="font-bold capitalize hover:text-navy-700 dark:hover:text-white"
           >
-            {brandText}
-          </Link>
+          Good day, Chess House Dental Practice
+          </div>
         </p>
       </div>
 
@@ -131,7 +136,7 @@ const Navbar = (props) => {
               </button>
             </div>
           }
-          classNames={"py-2 top-4 -left-[230px] md:-left-[440px] w-max"}
+          classNames={'py-2 top-4 -left-[230px] md:-left-[440px] w-max'}
         />
         {/* start Horizon PRO */}
         <Dropdown
@@ -145,8 +150,8 @@ const Navbar = (props) => {
               <div
                 style={{
                   backgroundImage: `url(${navbarimage})`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "cover",
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: 'cover',
                 }}
                 className="mb-2 aspect-video w-full rounded-lg"
               />
@@ -173,7 +178,7 @@ const Navbar = (props) => {
               </a>
             </div>
           }
-          classNames={"py-2 top-6 -left-[250px] md:-left-[330px] w-max"}
+          classNames={'py-2 top-6 -left-[250px] md:-left-[330px] w-max'}
           animation="origin-[75%_0%] md:origin-top-right transition-all duration-300 ease-in-out"
         />
         {/* <div
@@ -206,10 +211,10 @@ const Navbar = (props) => {
           className="cursor-pointer text-gray-600"
           onClick={() => {
             if (darkmode) {
-              document.body.classList.remove("dark");
+              document.body.classList.remove('dark');
               setDarkmode(false);
             } else {
-              document.body.classList.add("dark");
+              document.body.classList.add('dark');
               setDarkmode(true);
             }
           }}
@@ -225,16 +230,16 @@ const Navbar = (props) => {
           }
           children={
             <div className="flex h-max w-56 flex-col justify-start rounded-[20px] bg-white bg-cover bg-no-repeat pb-4 shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none">
-              <div className="mt-3 ml-4">
+              <div className="ml-4 mt-3">
                 <div className="flex items-center gap-2">
                   <p className="text-sm font-bold text-navy-700 dark:text-white">
                     👋 Hey, Adela
-                  </p>{" "}
+                  </p>{' '}
                 </div>
               </div>
               <div className="mt-3 h-px w-full bg-gray-200 dark:bg-white/20 " />
 
-              <div className="mt-3 ml-4 flex flex-col">
+              <div className="ml-4 mt-3 flex flex-col">
                 <a
                   href=" "
                   className="text-sm text-gray-800 dark:text-white hover:dark:text-white"
@@ -256,7 +261,7 @@ const Navbar = (props) => {
               </div>
             </div>
           }
-          classNames={"py-2 top-8 -left-[180px] w-max"}
+          classNames={'py-2 top-8 -left-[180px] w-max'}
         />
       </div>
     </nav>
