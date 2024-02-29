@@ -3,8 +3,12 @@ import Nft1 from "assets/img/nfts/Nft1.png";
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
+import { GrFormView } from "react-icons/gr";
 import { FaMessage } from "react-icons/fa6";
+import Modal from './Modal';
+import { FaCalendarAlt } from "react-icons/fa";
 const Review=()=>{
+    let [toggle,setToggle]=useState(false)
     let total_rating_facebook=12;
     let total_rating_yelp=0;
     let total_reviews_facebook=0;
@@ -22,6 +26,7 @@ const Review=()=>{
 
   //  let data1_all=[];
     let [data1,setData]=useState([])
+    let [text,setText]=useState('')
     let [data1_all,setDataAll]=useState([])
     
     // const apiURL =  "https://app.legaciestechno.com/qualiconvert_dcp/api/get_data.php?type=review_data&email="+user_email;
@@ -51,7 +56,7 @@ const Review=()=>{
     // console.log(reviews_count);
 
     // let currentDate = new Date().toJSON().slice(0, 10);
-
+   
   async function getData(){
      const apiURL =  "https://app.legaciestechno.com/qualiconvert_dcp/api/get_data.php?type=review_data&email="+user_email;
     const response = await fetch(apiURL);
@@ -84,6 +89,11 @@ const Review=()=>{
 
     let currentDate = new Date().toJSON().slice(0, 10);
   }
+  function loadremaining(text){
+   // document.getElementById('leads_data').innerHTML = rev_data;
+   setText(text)
+    setToggle(!toggle);   
+    }
   useEffect(()=>{
       getData();
       getAll();
@@ -108,7 +118,7 @@ return(
                 
                 <div class="w-full px-10 mt-5">
                     <div class="w-full">            
-                        
+                     
                          <div class="w-full flex items-center justify-between mb-3 opacity-70">
                             <h2 class="text-black text-base font-[700]">Review </h2>  
                         
@@ -291,11 +301,11 @@ return(
     
                 <div class="w-full px-10 mt-8">
 
-                    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-6 gap-6 py-0 xl:py-10">
+                    <div class="grid grid-cols-1   lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-6 gap-6 py-0 xl:py-10">
                         { reviews_count ? reviews_count.map((item)=>( 
                          
-                        <div class="flex items-center p-4 rounded-lg shadow-lg bg-white">
-                            <div class="p-3 mr-4 text-black bg-[white] text-lg rounded-full flex-none">
+                        <div class="flex items-center  p-4 rounded-lg shadow-lg bg-white">
+                            <div class="p-3 mr-4 text-black bg-[white] text-lg rounded-full flex-none lg:cols-3 md:cols-6 sm:cols-6">
                                 { item.key=='Google'  ?
                                 (<FaGoogle/>)
                                 : item.key=='Facebook'? (
@@ -316,17 +326,18 @@ return(
 
                     
 
-                    <div class="w-full grid grid-cols-4 2xl:grid-cols-4 gap-5">
+                    <div class="w-full grid grid-cols-4 2xl:grid-cols-4 gap-5 md:grid-cols-3 sm:grid-cols-2 mt-5">
+                    {toggle ?   <Modal toggle={toggle} setToggle={setToggle}  loadremaining={loadremaining} setText={setText} text={text}/>: ""}
                            
                             {  main_columnheader  ? main_columnheader.map((item)=>(
                                  
  
 
-                                <div class="relative flex flex-col items-start group bg-[white] p-10 rounded-lg border border-gray-200 pt-15 shadow-xl shadow-gray-300  gap-4">                                     
-                                    <div class="w-full flex items-center justify-between mt-0">
-                                        <div class="flex items-center">
+                                <div class="relative flex flex-col items-start group bg-[white]  p-10 rounded-lg border border-gray-200 pt-15 shadow-xl shadow-gray-300  gap-4 ">                                     
+                                    <div class="w-full flex items-center justify-between mt-0 ">
+                                        <div class="flex items-center lg:cols-3 md:cols-6 sm:cols-12">
                                             <div class="">
-                                                <div class="inline-flex px-3 py-1 text-[22px] capitalize font-medium leading-normal rounded-[30px] bg-[white] text-[blue]">
+                                                <div class="inline-flex px-3 py-1 text-[22px] capitalize font-medium leading-normal rounded-[30px] bg-[#C0B8FE] text-[blue]">
                                                     {item.source}
                                                 </div> 
                                             </div>
@@ -334,8 +345,8 @@ return(
                                                 <i class="fa-solid fa-globe text-[20px]"></i>
                                             </div>                                            
                                         </div>                                         
-                                        <div class="flex items-center"> 
-                                            <div class="text-[16px] font-[600]"><i class="fa-solid fa-calendar-days text-[15px] mr-2"></i> {item.date}</div>
+                                        <div class=" w-1/2  items-center  "> 
+                                            <div class="text-[14px] font-[600] flex flex-row gap-2"><FaCalendarAlt className='mt-1'/> {item.date}</div>
                                         </div>
                                     </div>
                                     <div class="w-full flex items-start justify-between1 mt-5 relative">
@@ -344,7 +355,7 @@ return(
                                                 <FaStar/> {item.rating}
                                             </div> 
                                             <div class="flex flex-wrap items-center gap-3 text-[12px] 2xl:text-[15px]">
-                                                <div class="w-full flex flex-row gap-4 "><i class="fa-solid fa-message text-[15px] mr-2"></i>
+                                                <div class="w-full flex gap-3"><i class="fa-solid fa-message text-[15px] mr-2"></i>
                                                     {/* { item.review!='' && item.review.length > 14 ?(
                                                     {main_columnheader.review.substring(0,30)} ...
                                                         <a href="#!" title="View More" on:click={() =>loadremaining(main_columnheader.review)  }><i class="fa-solid fa-eye"></i></a> 
@@ -355,7 +366,11 @@ return(
                                                                 {main_columnheader.review} 
                                                             {/if}
                                                      ) : ""}  */}
-                                                    Review : {item.review.substring(0,30)}
+                                                     <FaMessage className='mt-2'/>
+                                                     {item.review != '' && item.review.length > 14 ? (
+                                                    <div className='flex flex-row gap-0'>  <span className='mt-1.5'>{item.review.substring(0,30)}...</span><GrFormView onClick={()=>loadremaining(item.review.substring(0,200))} className='text-4xl text-green'/></div>
+                                                    ):""}
+                                                    
                                                 </div> 
                                             </div>
                                         </div>                                         
@@ -373,4 +388,5 @@ return(
                         </div>
 )
 }
+
 export default Review

@@ -168,7 +168,7 @@ const Business=()=>{
                   <div class="text-md font-bold text-black border-solid border-b border-gray-100 pb-3 mb-4"><i class="fa-solid fa-display"></i> Desktop</div>
                   <div class="w-full">
                     
-                    <div class="grid grid-cols-4 gap-8 score">
+                    <div class="grid grid-cols-4 gap-6 score md:grid-cols-4 sm:grid-cols-2">
                       
                       
                       <div className="mx-auto mb-5 mt-4 flex h-40 w-36 items-center justify-center">
@@ -199,7 +199,7 @@ const Business=()=>{
                   <div class="text-md font-bold text-black border-solid border-b border-gray-100 pb-3 mb-4"><i class="fa-solid fa-mobile-screen-button"></i> Mobile</div>
                   <div class="w-full">
                     
-                    <div class="grid grid-cols-4 gap-8 score">
+                    <div class="grid grid-cols-4 gap-8 score md:grid-cols-4 sm:grid-cols-2">
                       
                     <div className="mx-auto mb-5 mt-4 flex h-40 w-36 items-center justify-center">
         <CircularProgress title="Perfomance" percentage={34} />

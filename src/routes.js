@@ -6,6 +6,7 @@ import {
 } from "react-icons/md";
 import { FaBusinessTime } from "react-icons/fa6";
 import { SiCodereview } from "react-icons/si";
+import { SiCoinmarketcap } from "react-icons/si";
 
 // Admin Imports
 import DashboardsDefault from "views/admin/dashboards/default";
@@ -20,6 +21,7 @@ import NFTCollection from "views/admin/nfts/collection";
 import NFTProfile from "views/admin/nfts/profile";
 
 // Main Imports
+import SeoInsights from 'views/admin/seo-insights'
 import AccountBilling from "views/admin/main/account/billing";
 import AccountApplications from "views/admin/main/account/application";
 import AccountInvoice from "views/admin/main/account/invoice";
@@ -185,6 +187,15 @@ const routes = [
   //   ],
   // },
   {
+    name: "Seo-insights",
+        layout: "/admin",
+        path: "/nfts/seo-insights",
+        component: <SeoInsights />,
+        icon: <FaBusinessTime className="text-inherit h-5 w-5" />,
+        secondary: true,
+
+  },
+  {
     name: "Business-info",
         layout: "/admin",
         path: "/nfts/business-info",
@@ -218,7 +229,7 @@ const routes = [
       name: "Marketing",
       path: "/marketing",
       collapse: true,
-      icon: <SiCodereview className="text-inherit h-5 w-5" />,
+      icon: <SiCoinmarketcap className="text-inherit h-5 w-5" />,
       items: [
         {
           name: "Contacts",
