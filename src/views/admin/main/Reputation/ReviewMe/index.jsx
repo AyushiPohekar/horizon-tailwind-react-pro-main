@@ -106,10 +106,10 @@ const ReviewMe=()=>{
                             contenteditable="false"
                           >
                             <div
-                              class='bg-[white] p-10 rounded-lg border border-gray-200 pt-15 shadow-xl shadow-gray-300'style={{width: "600px", margin: "0px auto", padding: "0px", border: "1px solid #6b7280"}}
+                              class='bg-[white] p-10 rounded-lg border border-gray-200 pt-15 shadow-xl shadow-gray-300  'style={{ width:"70%",margin: "0px auto", padding: "0px", border: "1px solid #6b7280"}}
                             >
                               <div
-                                style={{background:"blue", textAlign: "center", padding: "15px 10px", display: "block", clear: "both",backgroundImage: `url(${Nft1})`}}
+                                style={{  textAlign: "center", padding: "15px 10px", display: "block",backgroundImage: `url(${Nft1})`}}
                               >
                                 <img
                                   style={{width: "150px", height: "auto", margin: "0 auto", background:"#ffffff", padding:"5px", borderRadius:"4px"}}
