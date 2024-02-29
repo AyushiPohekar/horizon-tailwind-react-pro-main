@@ -1,58 +1,94 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Card from 'components/card';
 
 import DonutChart from 'components/charts/DonutChart';
+import axios from 'axios';
 
 const Dashboard = () => {
-  const tabledataleft = [
-    {
-      Channel: 'Organic Forms',
-      November: 0,
-      December: 1,
-      January: 1,
-      MTD: 4,
-    },
-    {
-      Channel: 'Organic Calls',
-      November: 0,
-      December: 1,
-      January: 1,
-      MTD: 2,
-    },
-    {
-      Channel: 'Paid Forms',
-      November: 2,
-      December: 3,
-      January: 2,
-      MTD: 3,
-    },
-    {
-      Channel: 'Paid Calls',
-      November: 0,
-      December: 1,
-      January: 1,
-      MTD: 1,
-    },
-  ];
+  const [donutdata, setDonutData] = useState([]);
+  const [campaign_id, setCampaign_id] = useState(1555419);
+  const [campaigndata, setCampaignData] = useState({});
 
-  async function change_graph_period() {
-    // let data1_dashboard_filter = [];
-    // let filter_id_val = document.getElementById('orgnaic_chart_id').value;
-    // let usr_id = 225;
-    // const apiURL_dashboard_filter =
-    //   'https://app.legaciestechno.com/qualiconvert_dcp/api/get_data.php?type=viewall_dashboard&user_email=' +
-    //   user_email +
-    //   '&user_id=' +
-    //   usr_id +
-    //   '&filter_count=' +
-    //   filter_id_val;
-    // console.log(apiURL_dashboard_filter);
-    // const response_dashboard_filter = await fetch(apiURL_dashboard_filter);
-    // data1_dashboard_filter = await response_dashboard_filter.json();
-    // data1_dashboard = data1_dashboard_filter;
-    // console.log(data1_dashboard);
+  let data1_dashboard_channels = [];
+
+  let isChecked = false;
+  async function handleCheckboxClick() {
+    isChecked = !isChecked;
   }
+  console.log(isChecked);
+
+  let isChecked_keywords = false;
+  async function handleCheckboxClickKeywords() {
+    isChecked_keywords = !isChecked_keywords;
+  }
+  let isCheckedKeywords = false;
+  async function handleCheckboxClickKeywords() {
+    isCheckedKeywords = !isCheckedKeywords;
+  }
+
+  async function change_channel_period() {
+    let data1_dashboard_channels_filter = [];
+    let channel_filter = document.getElementById('home_channel').value;
+
+    //nodejs
+    const apiURL_dashboard_channel = `http://192.168.1.11:8003/wrapper/channelBottom?channel_filter=${channel_filter}`;
+
+    //php
+    let usr_id = 225;
+    // const apiURL_dashboard_channel =    "https://app.legaciestechno.com/qualiconvert_dcp/api/get_data.php?type=viewall_dashboard_channel&user_email="+user_email+"&user_id="+usr_id+'&channel_filter='+channel_filter;
+    console.log(apiURL_dashboard_channel);
+    const response_dashboard_channel = await fetch(apiURL_dashboard_channel);
+    data1_dashboard_channels_filter = await response_dashboard_channel.json();
+    data1_dashboard_channels = data1_dashboard_channels_filter;
+    console.log(data1_dashboard_channels);
+  }
+
+  const getdata = async () => {
+    const res = await axios.get(
+      'http://192.168.1.11:8003/wrapper/organicForm?filter_count=1'
+    );
+    console.log(res);
+    setDonutData(res.data);
+  };
+
+  useEffect(() => {
+    getdata();
+    getchanneldata();
+    getcampaigndata();
+  }, []);
+
+  const change_graph_period = async (e) => {
+    const res = await axios.get(
+      `http://192.168.1.11:8003/wrapper/organicForm?filter_count=${e.target.value}`
+    );
+    setDonutData(res.data);
+  };
+
+  const [channeldata, setChanneldata] = useState([]);
+
+  const getchanneldata = async () => {
+    const res = await axios.get(
+      `http://192.168.1.11:8003/wrapper/channelBottom?channel_filter=3`
+    );
+    setChanneldata(res.data);
+  };
+
+  const filterchanneldata = async (e) => {
+    const res = await axios.get(
+      `http://192.168.1.11:8003/wrapper/channelBottom?channel_filter=${e.target.value}`
+    );
+    setChanneldata(res.data);
+  };
+
+  const getcampaigndata = async () => {
+    const res = await axios.get(
+      `http://192.168.1.11:8003/wrapper/chessHouse?campaign_id=${campaign_id}`
+    );
+    console.log(res);
+    setCampaignData(res.data);
+  };
+
   return (
     <div className="mt-20 h-full w-full gap-[20px]  rounded-[20px] sm:mt-10 xl:flex-row">
       <div class="mb-2 flex flex-row items-center justify-end gap-2">
@@ -90,7 +126,7 @@ const Dashboard = () => {
         <div className="w-full rounded-xl border !border-gray-200 px-3 text-sm font-medium text-gray-600 outline-none dark:!border-none dark:bg-navy-700 md:w-fit">
           <select
             className="h-[45px] w-full rounded-xl text-sm font-medium text-gray-600 outline-none dark:bg-navy-700 md:w-fit md:pr-8 xl:pr-20"
-            onChange={() => change_graph_period()}
+            onChange={change_graph_period}
             id="orgnaic_chart_id"
             name="orgnaic_chart_id"
           >
@@ -102,11 +138,26 @@ const Dashboard = () => {
         </div>
 
         <div className="mx-auto mt-3 flex w-full items-center justify-center">
-         
-          <DonutChart title="Organic Forms" currentPercentage={80} pastPercentage={20}  />
-          <DonutChart title="Organic Calls" currentPercentage={66.7} pastPercentage={33.3} />
-          <DonutChart title="Paid Forms" currentPercentage={60} pastPercentage={40} />
-          <DonutChart title="Paid Calls" currentPercentage={50} pastPercentage={50} />
+          <DonutChart
+            title="Organic Forms"
+            currentPercentage={donutdata?.organic_forms_percentage}
+            pastPercentage={100 - donutdata?.organic_forms_percentage}
+          />
+          <DonutChart
+            title="Organic Calls"
+            currentPercentage={donutdata?.organic_calls_percentage}
+            pastPercentage={100 - donutdata?.organic_calls_percentage}
+          />
+          <DonutChart
+            title="Paid Forms"
+            currentPercentage={donutdata?.paid_forms_percentage}
+            pastPercentage={100 - donutdata?.paid_forms_percentage}
+          />
+          <DonutChart
+            title="Paid Calls"
+            currentPercentage={donutdata?.paid_calls_percentage}
+            pastPercentage={100 - donutdata?.paid_calls_percentage}
+          />
         </div>
       </Card>
       <div className="mt-3 flex  h-max w-full  gap-[20px] rounded-[20px] xl:flex-row">
@@ -115,7 +166,7 @@ const Dashboard = () => {
             <div className="w-full rounded-xl border !border-gray-200 px-3 text-sm font-medium text-gray-600 outline-none dark:!border-none dark:bg-navy-700 md:w-fit">
               <select
                 className="h-[45px] w-full rounded-xl text-sm font-medium text-gray-600 outline-none dark:bg-navy-700 md:w-fit md:pr-8 xl:pr-20"
-                onChange={() => change_graph_period()}
+                onChange={filterchanneldata}
                 id="orgnaic_chart_id"
                 name="orgnaic_chart_id"
               >
@@ -134,63 +185,81 @@ const Dashboard = () => {
                       Channel
                     </div>
                   </th>
-                  <th className="px-[14px] pt-[29px]">
-                    <div className="text-left text-xs font-bold uppercase tracking-wide text-gray-600">
-                      November
-                    </div>
-                  </th>
-                  <th className="px-[14px] pt-[29px]">
-                    <div className="text-left text-xs font-bold uppercase tracking-wide text-gray-600">
-                      December
-                    </div>
-                  </th>
-                  <th className="px-[14px] pt-[29px]">
-                    <div className="text-left text-xs font-bold uppercase tracking-wide text-gray-600">
-                      January
-                    </div>
-                  </th>
-                  <th className="px-[14px] pt-[29px]">
-                    <div className="text-left text-xs font-bold uppercase tracking-wide text-gray-600">
-                      MTD
-                    </div>
-                  </th>
+                  {channeldata?.channel_months?.map((month, index) => (
+                    <>
+                      <th className="px-[14px] pt-[29px]">
+                        {index == channeldata?.channel_months.length - 1 ? (
+                          <div className="text-left text-xs font-bold uppercase tracking-wide text-gray-600">
+                            MTD
+                          </div>
+                        ) : (
+                          <div className="text-left text-xs font-bold uppercase tracking-wide text-gray-600">
+                            {month}
+                          </div>
+                        )}
+                      </th>
+                    </>
+                  ))}
                 </tr>
               </thead>
 
               <tbody className="w-full">
-                {tabledataleft?.map((row, index) => {
-                  return (
-                    <>
-                      <tr key={index} className="w-full">
-                        <td className="font-xs px-[14px] pb-[4px] pt-[19px]">
-                          <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
-                            {row.Channel}
-                          </div>
-                        </td>
-                        <td className="font-xs px-[14px] pb-[4px] pt-[19px]">
-                          <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
-                            {row.November}
-                          </div>
-                        </td>
-                        <td className="font-xs px-[14px] pb-[4px] pt-[19px]">
-                          <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
-                            {row.December}
-                          </div>
-                        </td>
-                        <td className="font-xs px-[14px] pb-[4px] pt-[19px]">
-                          <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
-                            {row.January}
-                          </div>
-                        </td>
-                        <td className="font-xs px-[14px] pb-[4px] pt-[19px]">
-                          <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
-                            {row.MTD}
-                          </div>
-                        </td>
-                      </tr>
-                    </>
-                  );
-                })}
+                <tr className="w-full">
+                  <th
+                    scope="row"
+                    className="font-xs px-[14px] pb-[4px] pt-[19px]"
+                  >
+                    <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
+                      Organic Forms{' '}
+                    </div>
+                  </th>
+                  {channeldata?.channel_data?.map((month, index) => (
+                    <td class="px-6 py-4">{month['Organic Forms']?.count}</td>
+                  ))}
+                </tr>
+
+                <tr className="w-full">
+                  <th
+                    scope="row"
+                    className="font-xs px-[14px] pb-[4px] pt-[19px]"
+                  >
+                    <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
+                      Organic Calls
+                    </div>
+                  </th>
+                  {channeldata?.channel_data?.map((month, index) => (
+                    <td class="px-6 py-4">{month['Organic Calls']?.count}</td>
+                  ))}
+                </tr>
+
+                <tr className="w-full">
+                  <th
+                    scope="row"
+                    className="font-xs px-[14px] pb-[4px] pt-[19px]"
+                  >
+                    <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
+                      {' '}
+                      Paid Forms
+                    </div>
+                  </th>
+                  {channeldata?.channel_data?.map((month, index) => (
+                    <td class="px-6 py-4">{month['Paid Forms']?.count}</td>
+                  ))}
+                </tr>
+
+                <tr className="w-full">
+                  <th
+                    scope="row"
+                    className="font-xs px-[14px] pb-[4px] pt-[19px]"
+                  >
+                    <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
+                      Paid Calls
+                    </div>
+                  </th>
+                  {channeldata?.channel_data?.map((month, index) => (
+                    <td class="px-6 py-4">{month['Paid Calls']?.count}</td>
+                  ))}
+                </tr>
               </tbody>
             </table>
           </div>
@@ -208,9 +277,10 @@ const Dashboard = () => {
               id="weekly"
             />
           </div>
-          <div class="flex w-full items-center justify-between border-b border-solid border-gray-300 pb-3 mt-3">
+
+          <div class="mt-3 flex w-full items-center justify-between border-b border-solid border-gray-300 pb-3">
             <span class="text-black text-sm font-semibold leading-[13.41px]">
-              keywords
+              {campaigndata?.keywords}
             </span>{' '}
             <span class="text-[20px] leading-tight text-blue-500">
               <i class="fa-solid fa-angle-up"></i>
@@ -220,8 +290,9 @@ const Dashboard = () => {
             <span class="text-black text-sm font-semibold leading-[13.41px]">
               Volume
             </span>{' '}
-            <span class="font-bold">volume</span>
+            <span class="font-bold">{campaigndata?.volume}</span>
           </div>
+
           <div className="overflow-x-scroll 2xl:overflow-x-hidden">
             <table className="w-full">
               <thead>
@@ -243,29 +314,222 @@ const Dashboard = () => {
               </thead>
 
               <tbody className="w-full">
-                {tabledataleft?.map((row, index) => {
-                  return (
-                    <>
-                      <tr key={index} className="w-full">
-                        <td className="font-xs px-[14px] pb-[4px] pt-[19px]">
-                          <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
-                            {row.Channel}
-                          </div>
-                        </td>
-                        <td className="font-xs px-[14px] pb-[4px] pt-[19px]">
-                          <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
-                            {row.November}
-                          </div>
-                        </td>
-                        <td className="font-xs px-[14px] pb-[4px] pt-[19px]">
-                          <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
-                            {row.December}
-                          </div>
-                        </td>
-                      </tr>
-                    </>
-                  );
-                })}
+                <tr className="w-full">
+                  <td class="flex px-6 py-4">
+                  <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
+                  <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      x="0px"
+                      y="0px"
+                      class="mr-1 w-6"
+                      viewBox="0 0 48 48"
+                    >
+                      <path
+                        fill="#fbc02d"
+                        d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12	s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20	s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
+                      ></path>
+                      <path
+                        fill="#e53935"
+                        d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039	l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
+                      ></path>
+                      <path
+                        fill="#4caf50"
+                        d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36	c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
+                      ></path>
+                      <path
+                        fill="#1565c0"
+                        d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571	c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
+                      ></path>
+                    </svg>
+
+                    Organic Desktop
+                    </div>
+                   
+                  </td>
+                  <td class="px-6 py-4">
+                    {campaigndata && campaigndata?.organic_desktop && (
+                      <>{campaigndata?.organic_desktop.rank}</>
+                    )}
+                  </td>
+                  <td class="px-6 py-4">
+                    {campaigndata && campaigndata?.organic_desktop && (
+                      <>
+                        {campaigndata?.organic_desktop.change}
+                        {campaigndata?.organic_desktop.change > 0 ? (
+                          <i class="fa-solid fa-arrow-up ml-1 text-green-500"></i>
+                        ) : (
+                          <i class="fa-solid fa-arrow-down ml-1 text-red-500"></i>
+                        )}
+                      </>
+                    )}
+                  </td>
+                </tr>
+
+                <tr className="w-full">
+                  <td class="flex px-6 py-4">
+                  <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
+
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      x="0px"
+                      y="0px"
+                      class="mr-1 w-6"
+                      viewBox="0 0 48 48"
+                    >
+                      <path
+                        fill="#fbc02d"
+                        d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12	s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20	s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
+                      ></path>
+                      <path
+                        fill="#e53935"
+                        d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039	l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
+                      ></path>
+                      <path
+                        fill="#4caf50"
+                        d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36	c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
+                      ></path>
+                      <path
+                        fill="#1565c0"
+                        d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571	c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
+                      ></path>
+                    </svg>
+                    Organic Mobile
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    {campaigndata && campaigndata?.organic_mobile && (
+                      <>{campaigndata?.organic_mobile.rank}</>
+                    )}
+                  </td>
+                  <td class="px-6 py-4">
+                    {campaigndata && campaigndata?.organic_mobile && (
+                      <>
+                        {campaigndata?.organic_mobile.change}
+                        {campaigndata?.organic_mobile.change > 0 ? (
+                          <i class="fa-solid fa-arrow-up ml-1 text-green-500"></i>
+                        ) : (
+                          <i class="fa-solid fa-arrow-down ml-1 text-red-500"></i>
+                        )}
+                      </>
+                    )}
+                  </td>
+                </tr>
+
+                <tr className="w-full">
+                  <td class="flex px-6 py-4">
+                  <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
+
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      x="0px"
+                      y="0px"
+                      class="mr-1 w-6"
+                      viewBox="0 0 48 48"
+                    >
+                      <path
+                        fill="#fbc02d"
+                        d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12	s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20	s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
+                      ></path>
+                      <path
+                        fill="#e53935"
+                        d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039	l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
+                      ></path>
+                      <path
+                        fill="#4caf50"
+                        d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36	c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
+                      ></path>
+                      <path
+                        fill="#1565c0"
+                        d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571	c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
+                      ></path>
+                    </svg>
+                    Local Pack
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    {campaigndata && campaigndata?.local_pack ? (
+                      campaigndata?.local_pack.rank
+                    ) : (
+                      <>-</>
+                    )}
+                  </td>
+                  <td class="px-6 py-4">
+                    {' '}
+                    {campaigndata && campaigndata?.local_pack && (
+                      <>
+                        {campaigndata?.local_pack.change}
+                        {campaigndata?.local_pack.change > 0 ? (
+                          <i class="fa-solid fa-arrow-up ml-1 text-green-500"></i>
+                        ) : (
+                          <i class="fa-solid fa-arrow-down ml-1 text-red-500"></i>
+                        )}
+                      </>
+                    )}
+                  </td>
+                </tr>
+
+                <tr className="w-full">
+                  <td class="flex px-6 py-4">
+                  <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
+
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      x="0px"
+                      y="0px"
+                      class="mr-1 w-6"
+                      viewBox="0 0 48 48"
+                    >
+                      <path
+                        fill="#fbc02d"
+                        d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12	s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20	s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
+                      ></path>
+                      <path
+                        fill="#e53935"
+                        d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039	l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
+                      ></path>
+                      <path
+                        fill="#4caf50"
+                        d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36	c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
+                      ></path>
+                      <path
+                        fill="#1565c0"
+                        d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571	c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
+                      ></path>
+                    </svg>
+                    Local Finder
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    {campaigndata && campaigndata?.local_finder && (
+                      <>
+                        {campaigndata?.local_finder?.map((item) => (
+                          <>{item.rank}</>
+                        ))}
+                      </>
+                    )}
+                  </td>
+                  <td class="px-6 py-4">
+                    {campaigndata && campaigndata?.local_finder && (
+                      <>
+                        {campaigndata?.local_finder?.map((item) => (
+                          <>
+                            {item.change && (
+                              <>
+                                {item?.change}
+                                {item?.change > 0 ? (
+                                  <i class="fa-solid fa-arrow-up ml-1 text-green-500"></i>
+                                ) : (
+                                  <i class="fa-solid fa-arrow-down ml-1 text-red-500"></i>
+                                )}
+                                {item?.gained && <>+</>}
+                              </>
+                            )}
+                          </>
+                        ))}
+                      </>
+                    )}
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
