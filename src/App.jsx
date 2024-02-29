@@ -5,7 +5,7 @@ import AdminLayout from "layouts/admin";
 import AuthLayout from "layouts/auth";
 import "assets/css/Plugins.css";
 import { useState, useEffect } from "react";
-
+import '@fortawesome/fontawesome-free/css/all.css';
 const App = () => {
   // Create a new context
   const [themeApp, setThemeApp] = useState({
