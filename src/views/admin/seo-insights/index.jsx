@@ -1,47 +1,38 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import nft1 from '../../../assets/img/nfts/Nft1.png';
 import nft2 from '../../../assets/img/nfts/Nft3.png';
-import { FaArrowUp } from "react-icons/fa";
-import { FaArrowDown } from "react-icons/fa";
-import { GrFormView } from "react-icons/gr";
-import { SiSessionize } from "react-icons/si";
-import { TbUserScan } from "react-icons/tb";
-import { PiUsersFour } from "react-icons/pi";
+import { FaArrowUp } from 'react-icons/fa';
+import { FaArrowDown } from 'react-icons/fa';
+import { GrFormView } from 'react-icons/gr';
+import { SiSessionize } from 'react-icons/si';
+import { TbUserScan } from 'react-icons/tb';
+import { PiUsersFour } from 'react-icons/pi';
 const SeoInsights = () => {
-    const [data1,setData]=useState([]);
-   // const [data_seo,setDataSeo]=useState([]);
+  const [data1, setData] = useState([]);
 
-    async function getData(){
-        let campaign_id = 1555419;  //Chess House Dental Practice
-        const apiURL =   "https://app.legaciestechno.com/brightlocal/Examples/RankChecker/rankchecker_all.php?campaign_id="+campaign_id;
+  async function getData() {
+    let campaign_id = 1555419; //Chess House Dental Practice
+    const apiURL =
+      'https://app.legaciestechno.com/brightlocal/Examples/RankChecker/rankchecker_all.php?campaign_id=' +
+      campaign_id;
 
-      //  console.log(apiURL);
-        const response = await fetch(apiURL);          
-        const res= await response.json(); 
-        //console.log(res); 
-        setData(res)
-        positional_movement = data1.positional_movement;
-    }
-    // async function seoData(){
-    //     let name="chess";
-    //     const apiURL_seo =   "https://app.legaciestechno.com/brightlocal/Examples/OffsiteSeoAndSocialProfiles/OffsiteSeo_all.php?name="+name;
-    //    // console.log(apiURL_seo);
-    //     const response_seo = await fetch(apiURL_seo);          
-    //     let seoData = await response_seo.json(); 
-    //     setDataSeo(seoData); 
-    // }
-    useEffect(()=>{
-        getData()
-        //seoData();
-    },[data1])
-//console.log(data_seo);
-  //console.log(data1.local_pack)
-  let positional_movement='';
-  let organicRank=5;
- // let organicRank=data1.positional_movement.organic_desktop.rank;
- // let organicChange=data1.positional_movement.organic_desktop.change;
-  //let positional_movement['google'].up=0
+    //  console.log(apiURL);
+    const response = await fetch(apiURL);
+    const res = await response.json();
+    //console.log(res);
+    setData(res);
+    positional_movement = data1.positional_movement;
+  }
+ 
+  useEffect(() => {
+    getData();
+
+  }, [data1]);
+
+  let positional_movement = '';
+  let organicRank = 5;
+
   return (
     <div className="w-full p-0">
       <div className="mb-10 mt-5 w-full px-10">
@@ -64,7 +55,7 @@ const SeoInsights = () => {
                 <div className="grid grid-cols-1 gap-2 lg:grid-cols-1 2xl:grid-cols-1">
                   <div className="w-full rounded-[10px] border border-gray-500 bg-white p-4 ">
                     <div className="mb-2 flex items-center justify-start space-x-2">
-                      <GrFormView/>
+                      <GrFormView />
                       <div className="text-sm font-medium text-gray-400 ">
                         Views
                       </div>
@@ -77,7 +68,7 @@ const SeoInsights = () => {
                   </div>
                   <div className="w-full rounded-[10px] border border-gray-500 bg-white p-4">
                     <div className="mb-2 flex items-center justify-start space-x-2">
-                      <SiSessionize className='color-gray'/>
+                      <SiSessionize className="color-gray" />
                       <div className="text-sm font-medium text-gray-400 ">
                         Sessions
                       </div>
@@ -88,9 +79,9 @@ const SeoInsights = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="w-full min-h-[122px] rounded-[10px] border border-gray-500 bg-white p-4">
+                  <div className="min-h-[122px] w-full rounded-[10px] border border-gray-500 bg-white p-4">
                     <div className="mb-2 flex items-center justify-start space-x-2">
-                      <TbUserScan/>
+                      <TbUserScan />
                       <div className="text-sm font-medium text-gray-400 ">
                         New Users
                       </div>
@@ -101,9 +92,9 @@ const SeoInsights = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="w-full rounded-[10px] min-h-[122px] border border-gray-500 bg-white p-4">
+                  <div className="min-h-[122px] w-full rounded-[10px] border border-gray-500 bg-white p-4">
                     <div className="mb-2 flex items-center justify-start space-x-2">
-                      <PiUsersFour/>
+                      <PiUsersFour />
                       <div className="text-sm font-medium text-gray-400 ">
                         Active Users
                       </div>
@@ -117,7 +108,7 @@ const SeoInsights = () => {
                 </div>
               </div>
             </div>
-            <div className="w-full lg:w-1/4 sm:mt-1">
+            <div className="w-full sm:mt-1 lg:w-1/4">
               <div className="min-h-[450px] w-full rounded-[10px] bg-white p-3">
                 <div className="mb-2 flex items-center justify-start space-x-2">
                   <i className="fa-solid fa-chart-line"></i>
@@ -184,70 +175,7 @@ const SeoInsights = () => {
                                 aria-expanded="false"
                                 id="chart--control-toolbar-showasdatatable"
                                 aria-label="Show as table"
-                              >
-                                {/* <svg
-                                  focusable="false"
-                                  preserveAspectRatio="xMidYMid meet"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="cds--overflow-menu__icon cds--overflow-menu__icon"
-                                  viewBox="0 0 32 32"
-                                  aria-hidden="true"
-                                  style={{
-                                    willChange: 'transform',
-                                    width: '20px',
-                                    height: '20px',
-                                  }}
-                                >
-                                  <rect
-                                    x="4"
-                                    y="6"
-                                    width="18"
-                                    height="2"
-                                  ></rect>
-                                  <rect
-                                    x="4"
-                                    y="12"
-                                    width="18"
-                                    height="2"
-                                  ></rect>
-                                  <rect
-                                    x="4"
-                                    y="18"
-                                    width="18"
-                                    height="2"
-                                  ></rect>
-                                  <rect
-                                    x="4"
-                                    y="24"
-                                    width="18"
-                                    height="2"
-                                  ></rect>
-                                  <rect
-                                    x="26"
-                                    y="6"
-                                    width="2"
-                                    height="2"
-                                  ></rect>
-                                  <rect
-                                    x="26"
-                                    y="12"
-                                    width="2"
-                                    height="2"
-                                  ></rect>
-                                  <rect
-                                    x="26"
-                                    y="18"
-                                    width="2"
-                                    height="2"
-                                  ></rect>
-                                  <rect
-                                    x="26"
-                                    y="24"
-                                    width="2"
-                                    height="2"
-                                  ></rect>
-                                </svg> */}
-                              </button>
+                              ></button>
                             </div>
                             <div
                               className="toolbar-control cds--overflow-menu"
@@ -261,24 +189,7 @@ const SeoInsights = () => {
                                 aria-expanded="false"
                                 id="chart--control-toolbar-makefullscreen"
                                 aria-label="Make fullscreen"
-                              >
-                                {/* <svg
-                                  focusable="false"
-                                  preserveAspectRatio="xMidYMid meet"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="cds--overflow-menu__icon cds--overflow-menu__icon"
-                                  viewBox="0 0 32 32"
-                                  aria-hidden="true"
-                                  style={{
-                                    willChange: 'transform',
-                                    width: '15px',
-                                    height: '15px',
-                                  }}
-                                >
-                                  <polygon points="21 2 21 4 26.59 4 17 13.58 18.41 15 28 5.41 28 11 30 11 30 2 21 2"></polygon>
-                                  <polygon points="15 18.42 13.59 17 4 26.59 4 21 2 21 2 30 11 30 11 28 5.41 28 15 18.42"></polygon>
-                                </svg> */}
-                              </button>
+                              ></button>
                             </div>
                             <div
                               className="toolbar-control cds--overflow-menu"
@@ -292,25 +203,7 @@ const SeoInsights = () => {
                                 aria-expanded="false"
                                 id="chart--control-toolbar-overflow-menu"
                                 aria-label="More options"
-                              >
-                                {/* <svg
-                                    focusable="false"
-                                      preserveAspectRatio="xMidYMid meet"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      className="cds--overflow-menu__icon"
-                                          viewBox="0 0 32 32"
-                                          aria-hidden="true"
-                                          style={{
-                                             willChange: 'transform',
-                                             width: '20px',
-                                              height: '20px',
-  }}
-                                           >
-  <circle cx="16" cy="8" r="2"></circle>
-  <circle cx="16" cy="16" r="2"></circle>
-  <circle cx="16" cy="24" r="2"></circle>
-</svg> */}
-                              </button>
+                              ></button>
                             </div>
                           </div>
                         </div>
@@ -352,20 +245,7 @@ const SeoInsights = () => {
                                 aria-checked="true"
                                 width="13"
                                 height="13"
-                              >
-                                {/* <svg
-                                  focusable="false"
-                                  preserveAspectRatio="xMidYMid meet"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="11"
-                                  height="11"
-                                  viewBox="0 0 31 28"
-                                  aria-hidden="true"
-                                  style={{ willChange: 'transform' }}
-                                >
-                                  <path d="M13 21.2l-7.1-7.1-1.4 1.4 7.1 7.1L13 24 27.1 9.9l-1.4-1.5z"></path>
-                                </svg> */}
-                              </div>
+                              ></div>
                               <p id="chart--legend-datagroup-0-title">Views</p>
                             </div>
                             <div className="legend-item active">
@@ -377,20 +257,7 @@ const SeoInsights = () => {
                                 aria-checked="true"
                                 width="13"
                                 height="13"
-                              >
-                                {/* <svg
-                                  focusable="false"
-                                  preserveAspectRatio="xMidYMid meet"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="11"
-                                  height="11"
-                                  viewBox="0 0 31 28"
-                                  aria-hidden="true"
-                                  style={{ willChange: 'transform' }}
-                                >
-                                  <path d="M13 21.2l-7.1-7.1-1.4 1.4 7.1 7.1L13 24 27.1 9.9l-1.4-1.5z"></path>
-                                </svg> */}
-                              </div>
+                              ></div>
                               <p id="chart--legend-datagroup-1-title">
                                 Sessions
                               </p>
@@ -404,20 +271,7 @@ const SeoInsights = () => {
                                 aria-checked="true"
                                 width="13"
                                 height="13"
-                              >
-                                {/* <svg
-                                  focusable="false"
-                                  preserveAspectRatio="xMidYMid meet"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="11"
-                                  height="11"
-                                  viewBox="0 0 31 28"
-                                  aria-hidden="true"
-                                  style={{ willChange: 'transform' }}
-                                >
-                                  <path d="M13 21.2l-7.1-7.1-1.4 1.4 7.1 7.1L13 24 27.1 9.9l-1.4-1.5z"></path>
-                                </svg> */}
-                              </div>
+                              ></div>
                               <p id="chart--legend-datagroup-2-title">Users</p>
                             </div>
                           </div>
@@ -508,7 +362,7 @@ const SeoInsights = () => {
                 </div>
               </div>
             </div>
-            <div className="w-full lg:w-1/4 lg:pl-3 sm:mt-1">
+            <div className="w-full sm:mt-1 lg:w-1/4 lg:pl-3">
               <div className="min-h-[450px] w-full rounded-[10px] bg-white p-3">
                 <div className="mb-2 flex items-center justify-start space-x-2">
                   <i className="fa-solid fa-chart-line"></i>
@@ -579,14 +433,23 @@ const SeoInsights = () => {
                         </th>
 
                         <td className="">
-                          { data1 && data1.organic_desktop ?("1")
-                                            
-                                          : ""}
+                          {data1 && data1.organic_desktop ? '1' : ''}
                         </td>
                         <td className="">
-                        { data1 && data1.organic_desktop ?(<p style={{color:"red", display:"flex",columnGap:"2px"}}>-1<FaArrowDown className='mt-1'/></p>)
-                                            
-                                            : ""}
+                          {data1 && data1.organic_desktop ? (
+                            <p
+                              style={{
+                                color: 'red',
+                                display: 'flex',
+                                columnGap: '2px',
+                              }}
+                            >
+                              -1
+                              <FaArrowDown className="mt-1" />
+                            </p>
+                          ) : (
+                            ''
+                          )}
                         </td>
                       </tr>
 
@@ -624,14 +487,23 @@ const SeoInsights = () => {
                           </span>
                         </th>
                         <td className="">
-                        { data1 && data1.organic_mobile ?("1")
-                                            
-                                            : ""}
+                          {data1 && data1.organic_mobile ? '1' : ''}
                         </td>
                         <td className="">
-                        { data1 && data1.organic_mobile ?(<p style={{color:"red", display:"flex",columnGap:"2px"}}>-1<FaArrowDown className='mt-1'/></p>)
-                                            
-                                            : ""}
+                          {data1 && data1.organic_mobile ? (
+                            <p
+                              style={{
+                                color: 'red',
+                                display: 'flex',
+                                columnGap: '2px',
+                              }}
+                            >
+                              -1
+                              <FaArrowDown className="mt-1" />
+                            </p>
+                          ) : (
+                            ''
+                          )}
                         </td>
                       </tr>
 
@@ -669,19 +541,10 @@ const SeoInsights = () => {
                           </span>
                         </th>
                         <td className="">
-                        {
-                            data1 && data1.local_pack ? "0" : "-"
-                        }
-                          {/* {#if data1 && data1.local_pack}
-                                               {data1.local_pack.rank}
-                                          {:else}     
-                                              -
-                                          {/if} */}
+                          {data1 && data1.local_pack ? '0' : '-'}
                         </td>
                         <td className="px-2 py-4">
-                        {
-                            data1 && data1.local_pack ? "1" : "-"
-                        }
+                          {data1 && data1.local_pack ? '1' : '-'}
                         </td>
                       </tr>
 
@@ -719,38 +582,23 @@ const SeoInsights = () => {
                           </span>
                         </th>
                         <td className="">
-                        {
-                            data1 && data1.local_finder ? "1" : "0"
-                        }
-                          {/* {#if data1 && data1.local_finder}
-                                              {#each data1.local_finder as row} 
-                                                  <span className="font-bold"> 
-                                                      {row.rank} 
-                                                  </span>
-                                              {/each}
-                                          {/if} */}
+                          {data1 && data1.local_finder ? '1' : '0'}
                         </td>
                         <td className="px-2 py-4">
-                        {
-                            data1 && data1.local_finder ?   (<p style={{color:"red", display:"flex",columnGap:"2px"}}>-1<FaArrowDown className='mt-1'/></p>): 0
-                        }
-                          {/* {#if data1 && data1.local_finder}
-                                              {#each data1.local_finder as row} 
-                                                  <span className="font-bold">  
-                                                      {#if row.change}
-                                                          {row.change}
-                                                          {#if row.change > 0}
-                                                              <i className="fa-solid fa-arrow-up text-green-500 ml-1"></i>
-                                                          {:else}
-                                                              <i className="fa-solid fa-arrow-down text-red-500 ml-1"></i>
-                                                          {/if}
-                                                      {/if}
-                                                      {#if row.gained}
-                                                          +
-                                                      {/if}
-                                                  </span>
-                                              {/each}
-                                          {/if} */}
+                          {data1 && data1.local_finder ? (
+                            <p
+                              style={{
+                                color: 'red',
+                                display: 'flex',
+                                columnGap: '2px',
+                              }}
+                            >
+                              -1
+                              <FaArrowDown className="mt-1" />
+                            </p>
+                          ) : (
+                            0
+                          )}
                         </td>
                       </tr>
                     </tbody>
@@ -758,7 +606,7 @@ const SeoInsights = () => {
                 </div>
               </div>
             </div>
-            <div className="w-full lg:w-1/4 lg:pl-3 sm:mt-1">
+            <div className="w-full sm:mt-1 lg:w-1/4 lg:pl-3">
               <div className="min-h-[450px] w-full rounded-[10px] bg-white p-3">
                 <div className="mb-2 flex items-center justify-start space-x-2">
                   <i className="fa-solid fa-chart-line"></i>
@@ -808,11 +656,7 @@ const SeoInsights = () => {
                     </div>
                     <div className="mb-1.5 flex w-full items-center border-b border-solid border-gray-300 pb-2"></div>
                     <div className="flex w-full items-center">
-                      <div className="w-1/2">
-                        {/* {#if data1_seo && data1_seo.pages_indexed}
-                                              {data1_seo.pages_indexed}
-                                          {/if} */}
-                      </div>
+                      <div className="w-1/2"></div>
                     </div>
                   </div>
                   <div className="text-black w-full rounded border border-solid border-gray-300 p-1.5 px-3 text-sm font-normal leading-[13.41px]">
@@ -859,16 +703,8 @@ const SeoInsights = () => {
                       <div className="w-1/2">Domain. Linking</div>
                     </div>
                     <div className="flex w-full items-center">
-                      <div className="w-1/2">
-                        {/* {#if data1_seo && data1_seo.root_domain_external_links}
-                                              {data1_seo.root_domain_external_links}
-                                          {/if} */}
-                      </div>
-                      <div className="flex w-1/2 items-center ">
-                        {/* {#if data1_seo && data1_seo.root_domain_external_links}
-                                              {data1_seo.root_domains_linking}
-                                          {/if} */}
-                      </div>
+                      <div className="w-1/2"></div>
+                      <div className="flex w-1/2 items-center "></div>
                     </div>
                   </div>
                   <div className="text-black w-full rounded border border-solid border-gray-300 p-1.5 px-3 text-sm font-normal leading-[13.41px]">
@@ -915,16 +751,8 @@ const SeoInsights = () => {
                       <div className="w-1/2">URL Authority</div>
                     </div>
                     <div className="flex w-full items-center">
-                      <div className="w-1/2">
-                        {/* {#if data1_seo && data1_seo.domain_authority}
-                                                  {data1_seo.domain_authority}
-                                              {/if} */}
-                      </div>
-                      <div className="flex w-1/2 items-center ">
-                        {/* {#if data1_seo && data1_seo.domain_authority}
-                                              {data1_seo.url_authority}
-                                          {/if} */}
-                      </div>
+                      <div className="w-1/2"></div>
+                      <div className="flex w-1/2 items-center "></div>
                     </div>
                   </div>
                   <div className="text-black w-full rounded border border-solid border-gray-300 p-1.5 px-3 text-sm font-normal leading-[13.41px]">
@@ -971,16 +799,8 @@ const SeoInsights = () => {
                       <div className="w-1/2">Reg Year</div>
                     </div>
                     <div className="flex w-full items-center">
-                      <div className="w-1/2">
-                        {/* {#if data1_seo && data1_seo.website_age}
-                                                {data1_seo.website_age}
-                                            {/if} */}
-                      </div>
-                      <div className="flex w-1/2 items-center ">
-                        {/* {#if data1_seo && data1_seo.registration_date}
-                                            {data1_seo.registration_date}
-                                        {/if} */}
-                      </div>
+                      <div className="w-1/2"></div>
+                      <div className="flex w-1/2 items-center "></div>
                     </div>
                   </div>
                 </div>
@@ -995,21 +815,22 @@ const SeoInsights = () => {
           </h2>
         </div>
 
-        <div className="relative min-h-[400px] rounded-lg  p-5" style={{backgroundImage: `url(${nft2})`}}>
+        <div
+          className="relative min-h-[400px] rounded-lg  p-5"
+          style={{ backgroundImage: `url(${nft2})` }}
+        >
           <div className="grid w-full grid-cols-4 gap-4">
             <div className="grid w-full grid-cols-1 gap-3">
               <div className="w-full rounded-[10px] border border-solid border-[#0b9229] bg-white">
                 <div className="flex w-full items-center justify-center py-3.5 text-center text-8xl font-bold text-[#0b9229]">
                   <span className="">
-                  {  positional_movement.all_search_engines ?
-                                      {positional_movement} 
-                                  :
-                                  0
-                                  } 
+                    {positional_movement.all_search_engines
+                      ? { positional_movement }
+                      : 0}
                   </span>{' '}
-                  <FaArrowUp className="fa-solid fa-down-long ml-2 text-5xl"/>
+                  <FaArrowUp className="fa-solid fa-down-long ml-2 text-5xl" />
                 </div>
-                <div className="flex w-full items-center justify-center rounded-b-[10px] mt-2.5 bg-[#0b9229] py-3.5 text-center text-xl font-bold text-white">
+                <div className="mt-2.5 flex w-full items-center justify-center rounded-b-[10px] bg-[#0b9229] py-3.5 text-center text-xl font-bold text-white">
                   <span className="">Gained</span>
                 </div>
               </div>
@@ -1017,15 +838,13 @@ const SeoInsights = () => {
               <div className="w-full rounded-[10px] border border-solid border-[#c70509] bg-white">
                 <div className="flex w-full items-center justify-center py-3.5 text-center text-8xl font-bold text-[#c70509]">
                   <span className="">
-                  {  positional_movement.all_search_engines ?
-                                      {positional_movement} 
-                                  :
-                                  0
-                                  } 
+                    {positional_movement.all_search_engines
+                      ? { positional_movement }
+                      : 0}
                   </span>{' '}
-                  <FaArrowDown className="fa-solid fa-down-long ml-2 text-5xl"/>
+                  <FaArrowDown className="fa-solid fa-down-long ml-2 text-5xl" />
                 </div>
-                <div className="flex w-full items-center justify-center rounded-b-[10px] bg-[#c70509] mt-2.5 py-3.5 text-center text-xl font-bold text-white">
+                <div className="mt-2.5 flex w-full items-center justify-center rounded-b-[10px] bg-[#c70509] py-3.5 text-center text-xl font-bold text-white">
                   <span className="">Lost</span>
                 </div>
               </div>
@@ -1033,15 +852,13 @@ const SeoInsights = () => {
               <div className="w-full  rounded-[10px] border border-solid border-[#020435] bg-white">
                 <div className="flex w-full  items-center justify-center py-3.5  text-center text-8xl font-bold text-[#020435]">
                   <span className="">
-                     {  positional_movement.all_search_engines ?
-                                      {positional_movement} 
-                                  :
-                                  0
-                                  } 
+                    {positional_movement.all_search_engines
+                      ? { positional_movement }
+                      : 0}
                   </span>{' '}
-                  <FaArrowDown className="fa-solid fa-down-long ml-2 text-5xl"/>
+                  <FaArrowDown className="fa-solid fa-down-long ml-2 text-5xl" />
                 </div>
-                <div className="flex w-full items-center justify-center rounded-b-[10px] bg-[#020435] mt-2.5  py-3.5 text-center text-xl font-bold text-white">
+                <div className="mt-2.5 flex w-full items-center justify-center rounded-b-[10px] bg-[#020435]  py-3.5 text-center text-xl font-bold text-white">
                   <span className="">Change</span>
                 </div>
               </div>
@@ -1102,25 +919,13 @@ const SeoInsights = () => {
                           </span>
                         </th>
                         <td className="px-6 py-4">
-                          { positional_movement['google'] > 0 ?
-                                                  
-                                                      "1" 
-                                                    
-                                                  : "-"}
+                          {positional_movement['google'] > 0 ? '1' : '-'}
                         </td>
                         <td className="px-6 py-4">
-                        { positional_movement['google']> 0 ?
-                                                  
-                                                  "1" 
-                                                
-                                              : "-"}
+                          {positional_movement['google'] > 0 ? '1' : '-'}
                         </td>
                         <td className="px-6 py-4">
-                        { positional_movement['google'] > 0 ?
-                                                  
-                                                  "1" 
-                                                
-                                              : "-"}
+                          {positional_movement['google'] > 0 ? '1' : '-'}
                         </td>
                       </tr>
                       <tr className="border-b border-solid border-[#e5e5e1] bg-white">
@@ -1157,25 +962,13 @@ const SeoInsights = () => {
                           </span>
                         </th>
                         <td className="px-6 py-4">
-                        { positional_movement['google-mobile'] > 0 ?
-                                                  
-                                                  "1" 
-                                                
-                                              : "-"}
+                          {positional_movement['google-mobile'] > 0 ? '1' : '-'}
                         </td>
                         <td className="px-6 py-4">
-                        { positional_movement['google-mobile'] > 0 ?
-                                                  
-                                                  "1" 
-                                                
-                                              : "-"}
+                          {positional_movement['google-mobile'] > 0 ? '1' : '-'}
                         </td>
                         <td className="px-6 py-4">
-                        { positional_movement['google-mobile'] > 0 ?
-                                                  
-                                                  "1" 
-                                                
-                                              : "-"}
+                          {positional_movement['google-mobile'] > 0 ? '1' : '-'}
                         </td>
                       </tr>
 
@@ -1194,25 +987,13 @@ const SeoInsights = () => {
                           </span>
                         </th>
                         <td className="px-6 py-4">
-                        { positional_movement['google-places'] > 0 ?
-                                                  
-                                                  "1" 
-                                                
-                                              : "-"}
+                          {positional_movement['google-places'] > 0 ? '1' : '-'}
                         </td>
                         <td className="px-6 py-4">
-                        { positional_movement['google-places'] > 0 ?
-                                                  
-                                                  "1" 
-                                                
-                                              : "-"}
+                          {positional_movement['google-places'] > 0 ? '1' : '-'}
                         </td>
                         <td className="px-6 py-4">
-                        { positional_movement['google-places'] > 0 ?
-                                                  
-                                                  "1" 
-                                                
-                                              : "-"}
+                          {positional_movement['google-places'] > 0 ? '1' : '-'}
                         </td>
                       </tr>
                       <tr className="border-b border-solid border-[#e5e5e1] bg-white">
@@ -1230,25 +1011,13 @@ const SeoInsights = () => {
                           </span>
                         </th>
                         <td className="px-6 py-4">
-                        { positional_movement['bing'] > 0 ?
-                                                  
-                                                  "1" 
-                                                
-                                              : "-"}
+                          {positional_movement['bing'] > 0 ? '1' : '-'}
                         </td>
                         <td className="px-6 py-4">
-                        { positional_movement['bing'] > 0 ?
-                                                  
-                                                  "1" 
-                                                
-                                              : "-"}
+                          {positional_movement['bing'] > 0 ? '1' : '-'}
                         </td>
                         <td className="px-6 py-4">
-                        { positional_movement['bing'] > 0 ?
-                                                  
-                                                  "1" 
-                                                
-                                              : "-"}
+                          {positional_movement['bing'] > 0 ? '1' : '-'}
                         </td>
                       </tr>
                     </tbody>
