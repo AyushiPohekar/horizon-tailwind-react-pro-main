@@ -47,6 +47,66 @@ input:checked.defaultCheckbox::before {
 	
 	z-index: 1;
 }
+.lemlistbtn {
+    background-color: #007bff;
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 0.5rem 3rem;
+    margin-bottom: 1rem;
+  }
+  .lemlistbtn:hover {
+    background-color: #042d5a;
+  }
+  .templateli {
+    padding: 0.5rem;
+    width: 100%;
+    cursor: pointer;
+  }
+  .templateli:hover {
+    background-color: #e4ebf3;
+    border-left: 2px solid #007bff;
+  }
+  .plusdiv {
+    width: max-content;
+    margin: 0 auto;
+    padding: 0.1rem 0.2rem;
+    border-radius: 50%;
+    border: 1px solid black;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  }
+  .templtebtn:hover{
+    background-color:  rgb(228, 233, 247);
+
+  }
+  .card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffff;
+    border-radius: 20px;
+    width: 60%;
+    text-align: center;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+    margin-bottom: 1rem;
+  }
+  .bodyinput {
+    border-radius: 10px;
+    height: 320px;
+    background-color: #ffffff;
+    margin-top: 5px;
+    width: 100%;
+    padding: 1rem;
+    outline: none;
+    border: 1px solid lightgray;
+    overflow: auto;
+    text-justify: auto;
+  }
+ 
+  .bx--modal-content p{
+    padding-right: 0!important;
+  }
 .modalSpan{
 	width: 80%;
 	margin-right: 40px;

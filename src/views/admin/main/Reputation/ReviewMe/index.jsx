@@ -34,7 +34,7 @@ const ReviewMe=()=>{
               </select>
             </div>
           </div>
-          <div class="flex flex-wrap px-5 py-8 rounded-xl border-2">
+          <div class="flex flex-wrap px-5 py-8 rounded-xl border-2 ">
             <div class="revewme_tabs w-full mx-auto svelte-rxpop9">
               <div class="rewtab-content rounded-b-[25px]">
                 <div class="tab-panel svelte-rxpop9 active">
@@ -109,7 +109,7 @@ const ReviewMe=()=>{
                               class='bg-[white] p-10 rounded-lg border border-gray-200 pt-15 shadow-xl shadow-gray-300  'style={{ width:"70%",margin: "0px auto", padding: "0px", border: "1px solid #6b7280"}}
                             >
                               <div
-                                style={{  textAlign: "center", padding: "15px 10px", display: "block",backgroundImage: `url(${Nft1})`}}
+                                style={{  textAlign: "center", padding: "15px 10px", display: "block",background:"#E5ECF6"}}
                               >
                                 <img
                                   style={{width: "150px", height: "auto", margin: "0 auto", background:"#ffffff", padding:"5px", borderRadius:"4px"}}
@@ -157,7 +157,7 @@ const ReviewMe=()=>{
                                 </div>
                               </div>
                               <div
-                                style={{background:"#000",color: "#fff", lineHeight: "18px",textAlign: "center",padding: "15px 10px", display: "block",clear: "both", fontSize:"14px",backgroundImage: `url(${Nft1})`}}
+                                style={{color: "black", lineHeight: "18px",textAlign: "center",padding: "15px 10px", display: "block",clear: "both", fontSize:"14px",background:"#E5ECF6"}}
                               >
                                 Copyright © 2024 Chess House Dental
                                 Practice.
