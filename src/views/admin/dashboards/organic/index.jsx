@@ -23,6 +23,10 @@ import {
 } from '@chakra-ui/modal';
 import SolidSubtleAlert from 'views/admin/main/others/notifications/components/SolidSubtleAlert';
 import ModalComponent from './components/Modal';
+import ColumnsTable from './components/ComplexTable';
+// import { columnsDataColumns } from '../rtl/variables/columnsData';
+import tableDataColumns from "views/admin/main/applications/dataTables/variables/tableDataColumns.json";
+
 
 
 const Organic = () => {
@@ -55,8 +59,17 @@ const Organic = () => {
   let response_data_d_change = [];
   let open = false;
   let [verified_booked, setverified_booked] = useState([]);
-
+  const [enquirydisplay,setenquirydisplay]=useState(true);
+  const [newleaddisplay,setnewleaddisplay]=useState(false);
+  const [noconsultationdisplay,setnoconsultationdisplay]=useState(false);
   let [organicdata, setOrganicdata] = useState([]);
+  const[columnsDataComplex,setcolumnsDataComplex]=useState([]);
+  const [tableDataColumn,settableDataColumn]=useState([]);
+
+  useEffect(() => {
+    getorganicdata();
+  
+  }, []);
 
   async function filter_data(e) {
     e.preventDefault();
@@ -147,6 +160,23 @@ const Organic = () => {
     console.log(organic_no_consultation);
   }
 
+  async function get_filter_type(e){
+     console.log(e.target.value)
+     if(e.target.value=="newlead"){
+      setenquirydisplay(false);
+      setnewleaddisplay(true);
+      setnoconsultationdisplay(false);
+     }else if(e.target.value=="noconsultation"){
+      setenquirydisplay(false);
+      setnewleaddisplay(false);
+      setnoconsultationdisplay(true);
+     }else{
+      setenquirydisplay(true);
+      setnewleaddisplay(false);
+      setnoconsultationdisplay(false);
+     }
+  }
+
   async function get_filter() {
     let search_type = document.getElementById('search_by').value;
     if (search_type == 'custom') {
@@ -233,7 +263,7 @@ const Organic = () => {
       setorganic_newlead(organic_newlead_filter);
       setorganic_no_consultation(organic_no_consultation_filter);
 
-      console.log(organic_booked);
+      console.log(organic_booked,tableDataColumn);
       console.log(organic_newlead);
       console.log(organic_no_consultation);
 
@@ -435,6 +465,43 @@ const Organic = () => {
     let data1_dashboard_organic1 = res.data;
 
     setdata1_dashboard_organic(data1_dashboard_organic1);
+ 
+    const columnsDataComplexdata = [
+      {
+        Header: "Type",
+        accessor: "contact_type",
+      },
+      {
+        Header: "Name",
+        accessor: "first_name",
+      },
+      {
+        Header: "Date",
+        accessor: "date",
+      },
+      {
+        Header: "ContactNumber",
+        accessor: "ph_number",
+      },
+      {
+        Header: "Email_Id",
+        accessor: "email",
+      },
+      {
+        Header: "Update",
+        accessor: "",
+      },
+      {
+        Header: "Status",
+        accessor: "status",
+      },
+      {
+        Header: "Review",
+        accessor: "message",
+      }
+    ];
+    setcolumnsDataComplex(columnsDataComplexdata)
+    
     console.log(data1_dashboard_organic1);
 
     organic_booked_filter = [];
@@ -445,6 +512,8 @@ const Organic = () => {
       // console.log(item.status);
       item.type = 'website_form';
       if (item.status == 'booked' || item.status == 'enquiry') {
+        console.log(item)
+        
         organic_booked_filter.push(item);
       }
       if (item.status == 'newlead') {
@@ -461,6 +530,7 @@ const Organic = () => {
       // console.log(item.status);
       item.type = 'phone_call';
       if (item.status == 'booked' || item.status == 'enquiry') {
+        // settableDataColumn(...tableDataColumn,item)
         organic_booked_filter.push(item);
       }
       if (item.status == 'newlead') {
@@ -477,6 +547,7 @@ const Organic = () => {
       // console.log(item.status);
       item.type = 'chat_boat';
       if (item.status == 'booked' || item.status == 'enquiry') {
+        // settableDataColumn(...tableDataColumn,item)
         organic_booked_filter.push(item);
       }
       if (item.status == 'newlead') {
@@ -499,9 +570,7 @@ const Organic = () => {
 
     // setorganic_booked(res.data)
   };
-  useEffect(() => {
-    getorganicdata();
-  }, []);
+ 
 
 
 
@@ -513,14 +582,14 @@ const Organic = () => {
             icon={<MdPhone className="text-4xl" />}
             title="Total organic calls"
             value={data1_dashboard_organic?.total_organic_calls_count}
-            bgColor={'bg-white dark:!bg-navy-800'}
+            bgColor={'bg-yellow-200'}
             growth={''}
             growthColor="text-red-500"
-            cardBg="bg-white"
+            cardBg="bg-yellow-50"
             titleColor="text-gray-600"
             valueColor="text-navy-700 dark:text-white"
             detailColor="text-gray-600"
-            iconColor="text-brand-500"
+            iconColor="text-yellow-600"
           />
         </div>
         <div>
@@ -528,14 +597,15 @@ const Organic = () => {
             icon={<SiGoogleforms className="text-4xl" />}
             title="Total Forms"
             value={data1_dashboard_organic?.total_forms_count}
-            bgColor={'bg-white dark:!bg-navy-800'}
+            bgColor={'bg-indigo-200'}
             growth={''}
             growthColor="text-red-500"
-            cardBg="bg-white"
+            cardBg="bg-indigo-50"
+            
             titleColor="text-gray-600"
             valueColor="text-navy-700 dark:text-white"
             detailColor="text-gray-600"
-            iconColor="text-brand-500"
+            iconColor="text-indigo-600"
           />
         </div>
         <div>
@@ -543,14 +613,14 @@ const Organic = () => {
             icon={<MdChat className="text-4xl" />}
             title="Total Chatbots"
             value={data1_dashboard_organic?.total_chatboat_count}
-            bgColor={'bg-white dark:!bg-navy-800'}
+            bgColor={'bg-green-200'}
             growth={''}
             growthColor="text-red-500"
-            cardBg="bg-white"
+            cardBg="bg-green-50"
             titleColor="text-gray-600"
             valueColor="text-navy-700 dark:text-white"
             detailColor="text-gray-600"
-            iconColor="text-brand-500"
+            iconColor="text-green-600"
           />
         </div>
       </div>
@@ -636,10 +706,58 @@ const Organic = () => {
                 </option>
               </select>
             </div>
+            <div className="w-full rounded-xl border !border-gray-200 px-3 text-sm font-medium text-gray-600 outline-none dark:!border-none dark:bg-navy-700 md:w-fit ml-20">
+              <select
+                onChange={get_filter_type}
+                name="search_by"
+                id="search_by"
+                defaultValue={"enquires"}
+                className="h-[45px] w-full rounded-xl text-sm font-medium text-gray-600 outline-none dark:bg-navy-700 md:w-fit md:pr-8 xl:pr-20"
+              >
+                <option value="enquires" class="">
+                Enquires
+                </option>
+                <option value="newlead" class="">
+                  New Lead
+                </option>
+                <option value="noconsultation" class="">
+                No Consultation
+                </option>
+          
+             
+              </select>
+            </div>
           </div>
+         {enquirydisplay?
+          <div className="mt-5 grid h-full w-full grid-cols-1 gap-5">
+        <ColumnsTable
+          columnsData={columnsDataComplex}
+          tableData={organic_booked}
+          labelvalue={"Enquires"}
+        />
+      </div>:""}
+
+      {newleaddisplay?
+      <div className="mt-5 grid h-full w-full grid-cols-1 gap-5">
+        <ColumnsTable
+          columnsData={columnsDataComplex}
+          tableData={organic_newlead}
+          labelvalue={"New Lead"}
+        />
+      </div>:""}
+
+      
+     {noconsultationdisplay?
+      <div className="mt-5 grid h-full w-full grid-cols-1 gap-5">
+        <ColumnsTable
+          columnsData={columnsDataComplex}
+          tableData={organic_no_consultation}
+          labelvalue={"No Consultation"}
+        />
+      </div>:""}
 
           <div class="mb-10 mt-10 grid w-full grid-cols-1 gap-6  lg:grid-cols-3 2xl:gap-10">
-            <div class="flex w-full flex-shrink-0 flex-col">
+            {/* <div class="flex w-full flex-shrink-0 flex-col">
               <div class="mb-3 flex h-10 flex-shrink-0 items-center px-10">
                 <span class="block text-[18px] font-[600]">Enquires</span>
                 <span class="ml-2 flex h-5 w-5 items-center justify-center rounded bg-gray-500 bg-opacity-70 text-sm font-semibold text-white">
@@ -1128,11 +1246,11 @@ const Organic = () => {
                   </>
                 )}
               </div>
-            </div>
+            </div> */}
 
             {/* Form */}
 
-            <div class="flex w-full flex-shrink-0 flex-col">
+            {/* <div class="flex w-full flex-shrink-0 flex-col">
               <div class="mb-3 flex h-10 flex-shrink-0 items-center px-10">
                 <span class="block text-[18px] font-[600]">New Leads</span>
                 <span class="ml-2 flex h-5 w-5 items-center justify-center rounded bg-gray-500 bg-opacity-70 text-sm font-semibold text-white">
@@ -1644,9 +1762,9 @@ const Organic = () => {
                   </>
                 )}
               </div>
-            </div>
+            </div> */}
 
-            <div class="flex w-full flex-shrink-0 flex-col">
+            {/* <div class="flex w-full flex-shrink-0 flex-col">
               <div class="relative mb-3 flex h-10 flex-shrink-0 items-center px-10">
                 <span class="block text-[18px] font-[600]">
                   No Consultation / Existing Patient
@@ -2178,12 +2296,12 @@ const Organic = () => {
                     </>
                   )}
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
     
-      <ModalComponent isOpen={isModalOpen} onClose={closeModal} leadsData={leadsData}/>
+      {/* <ModalComponent isOpen={isModalOpen} onClose={closeModal} leadsData={leadsData}/> */}
 
     </div>
   );

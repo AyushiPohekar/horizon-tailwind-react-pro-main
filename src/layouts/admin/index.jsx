@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { Portal } from "@chakra-ui/portal";
 import Navbar from "components/navbar";
@@ -12,6 +12,7 @@ export default function Admin(props) {
   const [open, setOpen] = React.useState(true);
   const [hovered, setHovered] = React.useState(false);
   const [currentRoute, setCurrentRoute] = React.useState("Main Dashboard");
+  const [mainlocation,setMainlocation]=useState("chess")
   React.useEffect(() => {
     window.addEventListener("resize", () =>
       window.innerWidth < 1200 ? setOpen(false) : setOpen(true)
@@ -80,22 +81,23 @@ export default function Admin(props) {
         setHovered={setHovered}
         mini={props.mini}
         onClose={() => setOpen(false)}
+        mainlocation={mainlocation}
       />
       {/* Navbar & Main Content */}
       <div className="h-full w-full font-dm dark:bg-background-900">
         {/* Main Content */}
         <main
-          className={`mx-2.5 flex-none transition-all dark:bg-background-900 md:pr-2 ${
+          className={` flex-none transition-all dark:bg-background-900 md:pr-2 ${
             props.mini === false
-              ? "xl:ml-[313px]"
+              ? "xl:ml-[250px]"
               : props.mini === true && hovered === true
-              ? "xl:ml-[313px]"
+              ? "xl:ml-[250px]"
               : "ml-0 xl:ml-[142px]"
           } `}
         >
           {/* Routes */}
           <div>
-            <Portal>
+            {/* <Portal>
               <Navbar
                 onOpenSidenav={() => setOpen(!open)}
                 brandText={currentRoute}
@@ -107,8 +109,22 @@ export default function Admin(props) {
                 setMini={props.setMini}
                 {...rest}
               />
-            </Portal>
-            <div className="mx-auto min-h-screen p-2 !pt-[100px] md:p-2">
+            
+            </Portal> */}
+           <Navbar
+                onOpenSidenav={() => setOpen(!open)}
+                brandText={currentRoute}
+                secondary={getActiveNavbar(routes)}
+                theme={props.theme}
+                setTheme={props.setTheme}
+                hovered={hovered}
+                mini={props.mini}
+                setMini={props.setMini}
+                mainlocation={mainlocation}
+                setMainlocation={setMainlocation}
+                {...rest}
+              />
+            <div className=" min-h-screen p-2  md:p-2">
               <Routes>
                 {getRoutes(routes)}
                 <Route
@@ -117,9 +133,9 @@ export default function Admin(props) {
                 />
               </Routes>
             </div>
-            <div className="p-3">
+            {/* <div className="p-3">
               <Footer />
-            </div>
+            </div> */}
           </div>
         </main>
       </div>

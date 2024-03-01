@@ -4,10 +4,12 @@
 import React from 'react';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 
-const DonutChart = ({ currentPercentage, pastPercentage, title }) => {
+const DonutChart = ({ viewsPercentage, sessionsPercentage, usersPercentage }) => {
+  
   const data = [
-    { name: 'Current', value: currentPercentage, color: '#422AFB' },
-    { name: 'Past', value: pastPercentage, color: 'lightgrey' },
+    { name: 'Views', value: viewsPercentage , color: '#4EACF4' },
+    { name: 'Sessions', value:sessionsPercentage , color: '#6F21D1' },
+    { name: 'Users', value:usersPercentage , color: '#EB55A5' },
   ];
 
   return (

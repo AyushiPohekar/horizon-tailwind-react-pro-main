@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MiniStatistics from '../organic/components/MiniStatistics';
 import { MdPhone, MdChat } from 'react-icons/md';
-
+import ColumnsTable from '../organic/components/ComplexTable';
 import { SiGoogleforms } from 'react-icons/si';
 import axios from 'axios';
 
@@ -12,7 +12,9 @@ const VerifiedLeads = () => {
   let [verified_organic_calls_count,setverified_organic_calls_count]=useState(0)
   let [verified_chatbot_count,setverified_chatbot_count]=useState(0)
  
-
+  const [enquirydisplay,setenquirydisplay]=useState(true);
+  const [newleaddisplay,setnewleaddisplay]=useState(false);
+  const [noconsultationdisplay,setnoconsultationdisplay]=useState(false);
   let verified_booked_filter = [];
   let verified_forms_count_filter = 0;
   let verified_organic_calls_count_filter = 0;
@@ -26,6 +28,10 @@ const VerifiedLeads = () => {
   let organic_newlead_filter = [];
   let organic_no_consultation_filter = [];
   const [organic_booked, setorganic_booked] = useState([]);
+  const[columnsDataComplex,setcolumnsDataComplex]=useState([]);
+  const [calls_display,setcalls_display]=useState([]);
+  const [forms_display,setforms_display]=useState([]);
+  const [chatbots,setchatbots]=useState([]);
   // let organic_booked = [];
   // let organic_newlead = [];
 
@@ -34,7 +40,6 @@ const VerifiedLeads = () => {
   // let organic_no_consultation = [];
 
   async function filter_data_verified(e) {
-    e.preventDefault();
     const formData = new FormData(e.target);
     const data = {};
     for (let field of formData) {
@@ -461,6 +466,41 @@ const VerifiedLeads = () => {
     const res=await axios.get("http://192.168.1.11:8003/wrapper/organic")
     let data1_dashboard_organic1 = res.data;
     setdata1_dashboard_organic(data1_dashboard_organic1);
+    const columnsDataComplexdata = [
+      {
+        Header: "Type",
+        accessor: "contact_type",
+      },
+      {
+        Header: "Name",
+        accessor: "first_name",
+      },
+      {
+        Header: "Date",
+        accessor: "date",
+      },
+      {
+        Header: "ContactNumber",
+        accessor: "ph_number",
+      },
+      {
+        Header: "Email_Id",
+        accessor: "email",
+      },
+      // {
+      //   Header: "Update",
+      //   accessor: "",
+      // },
+      {
+        Header: "Status",
+        accessor: "status",
+      },
+      {
+        Header: "Review",
+        accessor: "message",
+      }
+    ];
+    setcolumnsDataComplex(columnsDataComplexdata)
     console.log(data1_dashboard_organic1);
 
     verified_booked_filter = [];
@@ -552,14 +592,14 @@ const VerifiedLeads = () => {
             icon={<MdPhone className="text-4xl" />}
             title="Total organic calls"
             value={verified_organic_calls_count}
-            bgColor={'bg-white dark:!bg-navy-800'}
+            bgColor={'bg-yellow-200'}
             growth={''}
             growthColor="text-red-500"
-            cardBg="bg-white"
+            cardBg="bg-yellow-50"
             titleColor="text-gray-600"
             valueColor="text-navy-700 dark:text-white"
             detailColor="text-gray-600"
-            iconColor="text-brand-500"
+            iconColor="text-yellow-600"
           />
         </div>
         <div>
@@ -567,14 +607,15 @@ const VerifiedLeads = () => {
             icon={<SiGoogleforms className="text-4xl" />}
             title="Total Forms"
             value={verified_forms_count}
-            bgColor={'bg-white dark:!bg-navy-800'}
+            bgColor={'bg-indigo-200'}
             growth={''}
             growthColor="text-red-500"
-            cardBg="bg-white"
+            cardBg="bg-indigo-50"
+            
             titleColor="text-gray-600"
             valueColor="text-navy-700 dark:text-white"
             detailColor="text-gray-600"
-            iconColor="text-brand-500"
+            iconColor="text-indigo-600"
           />
         </div>
         <div>
@@ -582,89 +623,151 @@ const VerifiedLeads = () => {
             icon={<MdChat className="text-4xl" />}
             title="Total Chatbots"
             value={verified_chatbot_count}
-            bgColor={'bg-white dark:!bg-navy-800'}
+            bgColor={'bg-green-200'}
             growth={''}
             growthColor="text-red-500"
-            cardBg="bg-white"
+            cardBg="bg-green-50"
             titleColor="text-gray-600"
             valueColor="text-navy-700 dark:text-white"
             detailColor="text-gray-600"
-            iconColor="text-brand-500"
+            iconColor="text-green-600"
           />
         </div>
       </div>
-
-      <div class="mb-10 mt-10 flex w-full items-center border-b border-t border-solid border-[#e5e5e1] px-10 py-4">
-        <div class="min-w-0 flex-1">{/* <!-- <Search light /> --> */}</div>
-        <div class="ml-auto flex items-center space-x-4">
-          <div
-            class="flex hidden w-full items-center justify-center space-x-5"
-            id="custom_search_verified"
-          >
-            <form
-              onSubmit={filter_data_verified}
-              enctype="multipart/form-data"
-              class="flex w-full items-center space-x-3"
+      <div className="mb-5 mt-5 ">
+        <div class={'h-full w-full px-9 py-3'}>
+          <div class="min-w-0 flex-1"></div>
+      <div class="flex">
+            <div
+              class="flex hidden w-full items-center justify-center space-x-5"
+              id="custom_search"
             >
-              <span class="flex w-36">
-                <strong class="mr-1.5">Filter By:</strong> Start{' '}
-              </span>
-              <input
-                max="{currentDate}"
-                type="date"
-                name="start_date"
-                id="start_date_verified"
-                required
-                class="w-38 rounded-xl border border-solid border-gray-600 bg-white px-4 py-2 leading-tight text-gray-700 focus:border-blue-500 focus:bg-white focus:outline-none"
-              />
-              <span>To </span>
-              <input
-                max="{currentDate}"
-                type="date"
-                name="end_date"
-                id="end_date_verified"
-                required
-                class="w-38 rounded-xl border border-solid border-gray-600 bg-white px-4 py-2 leading-tight text-gray-700 focus:border-blue-500 focus:bg-white focus:outline-none"
-              />
-              <input
-                type="submit"
-                value="Go"
-                class="bg-primarycolor-500 hover:bg-secondarycolor-500 text-md cursor-pointer rounded-full px-4 py-2 font-normal text-white shadow-xl"
-              />
-            </form>
+              <form
+                // onSubmit={filter_data}
+                enctype="multipart/form-data"
+                class="flex w-full items-center space-x-3"
+              >
+                <span class="flex w-36">
+                  <strong class="mr-1.5">Filter By:</strong> Start{' '}
+                </span>
+                <input
+                  max={currentDate}
+                  type="date"
+                  name="start_date"
+                  id="start_date"
+                  required
+                  class="w-38 rounded-xl border border-solid border-gray-600 bg-white px-4 py-2 leading-tight text-gray-700 focus:border-blue-500 focus:bg-white focus:outline-none"
+                />
+                <span>To </span>
+                <input
+                  max={currentDate}
+                  type="date"
+                  name="end_date"
+                  id="end_date"
+                  required
+                  class="w-38 rounded-xl border border-solid border-gray-600 bg-white px-4 py-2 leading-tight text-gray-700 focus:border-blue-500 focus:bg-white focus:outline-none"
+                />
+                {/* <input
+                  type="submit"
+                  value="Go"
+                  class="bg-primarycolor-500 hover:bg-secondarycolor-500 text-md cursor-pointer rounded-full px-4 py-2 font-normal text-white shadow-xl"
+                /> */}
+                <button
+                  type="submit"
+                  class="flex items-center justify-center rounded-full bg-brand-500 p-2 text-3xl text-white transition duration-200 hover:cursor-pointer hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
+                  fdprocessedid="uuvz8k"
+                >
+                  <svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 24 24"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
+                  </svg>
+                </button>
+              </form>
+            </div>
+            <div className="w-full rounded-xl border !border-gray-200 px-3 text-sm font-medium text-gray-600 outline-none dark:!border-none dark:bg-navy-700 md:w-fit ml-auto">
+              <select
+                // onChange={() => get_filter()}
+                name="search_by"
+                id="search_by"
+                className="h-[45px] w-full rounded-xl text-sm font-medium text-gray-600 outline-none dark:bg-navy-700 md:w-fit md:pr-8 xl:pr-20"
+              >
+                <option value="--" class="">
+                  Current Month
+                </option>
+                <option value="30 days" class="">
+                  Last 30 Days
+                </option>
+                <option value="60 days" class="">
+                  Last 60 days
+                </option>
+                <option value="90 days" class="">
+                  Last 90 Days
+                </option>
+                <option value="custom" class="">
+                  Custom
+                </option>
+              </select>
+            </div>
+            <div className="w-full rounded-xl border !border-gray-200 px-3 text-sm font-medium text-gray-600 outline-none dark:!border-none dark:bg-navy-700 md:w-fit ml-20">
+              <select
+                // onChange={get_filter_type}
+                name="search_by"
+                id="search_by"
+                defaultValue={"enquires"}
+                className="h-[45px] w-full rounded-xl text-sm font-medium text-gray-600 outline-none dark:bg-navy-700 md:w-fit md:pr-8 xl:pr-20"
+              >
+                <option value="enquires" class="">
+                Calls
+                </option>
+                <option value="newlead" class="">
+                  Form
+                </option>
+                <option value="noconsultation" class="">
+                Chat Boat
+                </option>
+          
+             
+              </select>
+            </div>
           </div>
 
-          <div class="flex w-full min-w-[30rem] items-center space-x-3  rounded-md bg-[#d3f26a] px-3 py-2">
-            <span class="text-black mr-1 w-24 whitespace-nowrap pl-2 text-lg font-bold">
-              Search by{' '}
-            </span>
-            <select
-              onChange={() => get_filter_verified()}
-              name="search_by_verified"
-              id="search_by_verified"
-              class="shadow-mdd w-full rounded-lg border-0 border-gray-400 bg-white px-5 py-2.5 font-normal leading-tight focus:border-blue-500 focus:bg-white focus:outline-none"
-            >
-              <option value="--" class="">
-                Current Month
-              </option>
-              <option value="30 days" class="">
-                Last 30 Days
-              </option>
-              <option value="60 days" class="">
-                Last 60 days
-              </option>
-              <option value="90 days" class="">
-                Last 90 Days
-              </option>
-              <option value="custom" class="">
-                Custom
-              </option>
-            </select>
-          </div>
-        </div>
-      </div>
+          {enquirydisplay?
+          <div className="mt-5 grid h-full w-full grid-cols-1 gap-5">
+        <ColumnsTable
+          columnsData={columnsDataComplex}
+          tableData={verified_booked}
+          labelvalue={"Calls"}
+        />
+      </div>:""}
 
-      <div class="mb-10 grid w-full grid-cols-1 gap-6 px-10 lg:grid-cols-3 2xl:gap-10">
+      {newleaddisplay?
+      <div className="mt-5 grid h-full w-full grid-cols-1 gap-5">
+        <ColumnsTable
+          columnsData={columnsDataComplex}
+          tableData={verified_booked}
+          labelvalue={"Forms"}
+        />
+      </div>:""}
+
+      
+     {noconsultationdisplay?
+      <div className="mt-5 grid h-full w-full grid-cols-1 gap-5">
+        <ColumnsTable
+          columnsData={columnsDataComplex}
+          tableData={organic_no_consultation}
+          labelvalue={"Chatbots"}
+        />
+      </div>:""}
+
+      {/* <div class="mb-10 grid w-full grid-cols-1 gap-6 px-10 lg:grid-cols-3 2xl:gap-10">
         <div class="flex w-full flex-shrink-0 flex-col">
           <div class="mb-3 flex h-10 flex-shrink-0 items-center px-0">
             <span class="block text-[18px] font-[600]">Calls</span>
@@ -1202,7 +1305,9 @@ const VerifiedLeads = () => {
             )}
           </div>
         </div>
-      </div>
+      </div> */}
+    </div>
+    </div>
     </div>
   );
 };

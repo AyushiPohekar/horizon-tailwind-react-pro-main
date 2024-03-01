@@ -4,18 +4,20 @@
 import React from 'react';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 
-const DonutChart = ({ currentPercentage, pastPercentage, title }) => {
+const DonutChart2 = ({ viewsPercentage, sessionsPercentage, usersPercentage }) => {
+  
   const data = [
-    { name: 'Current', value: currentPercentage, color: '#422AFB' },
-    { name: 'Past', value: pastPercentage, color: 'lightgrey' },
+    { name: 'Views', value: viewsPercentage , color: '#4EACF4' },
+    { name: 'Sessions', value:sessionsPercentage , color: '#6F21D1' },
+    { name: 'Users', value:usersPercentage , color: '#EB55A5' },
   ];
-
+console.log(data)
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '20px' }}>
       <div style={{ width: '100%', height: '200px' }}>
         <ResponsiveContainer>
           <PieChart>
-            <Pie
+          <Pie
               data={data}
               dataKey="value"
               cx="50%"
@@ -32,6 +34,7 @@ const DonutChart = ({ currentPercentage, pastPercentage, title }) => {
             <Tooltip />
           </PieChart>
         </ResponsiveContainer>
+     
       </div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         {data.map((entry, index) => (
@@ -45,5 +48,5 @@ const DonutChart = ({ currentPercentage, pastPercentage, title }) => {
   );
 };
 
-export default DonutChart;
+export default DonutChart2;
 

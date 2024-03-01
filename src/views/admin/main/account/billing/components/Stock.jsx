@@ -5,7 +5,7 @@ const Stock = (props) => {
   const { sum, name, chart, growth } = props;
 
   return (
-    <div className="z-[0.9] flex h-[86px] items-center justify-between">
+    <div className="z-[0.9] flex h-[30px] items-center justify-between mt-5 w-full">
       {/* left side */}
       <div>
         <h4 className="font-medium text-gray-600"> {name} </h4>
@@ -14,7 +14,7 @@ const Stock = (props) => {
             {" "}
             {sum}{" "}
           </p>
-          <p className="font-medium text-gray-600">EUR</p>
+          {/* <p className="font-medium text-gray-600">EUR</p> */}
         </div>
       </div>
 
