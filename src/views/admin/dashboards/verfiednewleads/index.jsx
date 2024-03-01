@@ -34,6 +34,7 @@ const VerifiedLeads = () => {
   // let organic_no_consultation = [];
 
   async function filter_data_verified(e) {
+    e.preventDefault();
     const formData = new FormData(e.target);
     const data = {};
     for (let field of formData) {
