@@ -403,7 +403,40 @@ const Review = () => {
             ) : (
               ''
             )}
+                    
 
+                    <div class="w-full grid grid-cols-4 2xl:grid-cols-4 gap-5 md:grid-cols-3 sm:grid-cols-2 mt-5">
+                    {toggle ?   <Modal toggle={toggle} setToggle={setToggle}  loadremaining={loadremaining} setText={setText} text={text}/>: ""}
+                           
+                            {  main_columnheader  ? main_columnheader.map((item)=>(
+                                 
+ 
+
+                                <div class="relative flex flex-col items-start group bg-[white]  p-10 rounded-lg border border-gray-200 pt-15 shadow-xl shadow-gray-300  gap-4 ">
+                                
+                                    <div class="w-full flex items-center justify-between mt-0 ">
+                                        <div class="flex items-center lg:cols-3 md:cols-6 sm:cols-12">
+                                            <div class="">
+                                                <div class="inline-flex px-3 py-1 text-[22px] capitalize font-medium leading-normal rounded-[30px] bg-[#C0B8FE] text-[blue]">
+                                                    {item.source}
+                                                </div> 
+                                            </div>
+                                            <div class="p-2 ml-3 bg-[#f5f5eb] rounded-full hidden">
+                                                <i class="fa-solid fa-globe text-[20px]"></i>
+                                            </div>                                            
+                                        </div>                                         
+                                        <div class=" w-1/2  items-center  "> 
+                                            <div class="text-[14px] font-[600] flex flex-row gap-2"><FaCalendarAlt className='mt-1'/> {item.date}</div>
+                                        </div>
+                                    </div>
+                                    <div class="w-full flex items-start justify-between1 mt-5 relative">
+                                        <div class="flex flex-row flex-wrap items-center gap-5 text-[14px] 2xl:text-[15px]">
+                                            <div class="w-full flex flex-row gap-4 ml-4">
+                                                <FaStar/> {item.rating}
+                                            </div> 
+                                            <div class="flex flex-wrap items-center gap-3 text-[12px] 2xl:text-[15px]">
+                                                <div class="w-full flex gap-3">
+                                                    {/* { item.review!='' && item.review.length > 14 ?(
             {main_columnheader
               ? main_columnheader.map((item) => (
                   <Card extra={'w-full  py-[10px] px-[20px] h-fit '}>
@@ -432,7 +465,7 @@ const Review = () => {
                         <div class="flex flex-wrap items-center gap-3 text-[12px] 2xl:text-[15px]">
                           <div class="flex w-full gap-3">
                             
-                            {/* { item.review!='' && item.review.length > 14 ?(
+                            {/* { item.review!='' && item.review.length > 14 ?
                                                     {main_columnheader.review.substring(0,30)} ...
                                                         <a href="#!" title="View More" on:click={() =>loadremaining(main_columnheader.review)  }><i class="fa-solid fa-eye"></i></a> 
                                                         {:else}        

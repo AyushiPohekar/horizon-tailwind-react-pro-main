@@ -43,12 +43,8 @@ input:checked.defaultCheckbox::before {
 	transform: translate(-50%,-50%);
 	z-index: 1;
 }
-.modal2{
-	position: absolute;
-	height:700px;
-	top: 150%;
-	left: 50%;
-	transform: translate(-50%,-50%);
+.modal12{
+	
 	z-index: 1;
 }
 .modalSpan{
