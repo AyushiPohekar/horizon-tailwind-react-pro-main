@@ -4,12 +4,13 @@ import Nft2 from "assets/img/nfts/Nft3.png";
 import Nft1 from "assets/img/nfts/Nft1.png";
 import CircularProgressMini from 'components/charts/CircularProgressMini';
 import CircularProgress from 'components/charts/CircularProgress';
+import Modal from './Modal'
 
 const Business=()=>{
     const data1=[];
     const [popup,setPopup]=useState(false);
     const loadpopup=()=>{
-        setPopup(true);
+        setPopup(!popup);
     }
     return(
         <div class="w-full p-0">
@@ -19,8 +20,8 @@ const Business=()=>{
         
       
             
-              <div className="flex w-full flex-row  rounded-[20px] bg-cover px-[15px] py-[20px] md:px-[64px] md:py-[30px]"
-      style={{ backgroundImage: `url(${nft1})` }}>
+              <div className="flex w-full flex-row  rounded-[20px] bg-cover bg-no-repeat px-[15px] py-[20px] md:px-[64px] md:py-[30px]"
+      style={{ backgroundImage: `url(${nft1})`,backgroundRepeat:"no-repeat" }}>
                 <div class="flex">
                   <i class="fa-solid fa-check bg-black p-[7px] text-white text-[14px] rounded-full"></i> 
                   <strong class="text-lg font-bold text-white pl-2 mt-2 ">Claimed</strong> 
@@ -30,7 +31,7 @@ const Business=()=>{
                 </span>
               </div>
             
-      
+      {popup ? <Modal popup={popup} setPopup={setPopup} loadpopup={loadpopup}/> : "" }
           
           <div class="w-full lg:flex mb-4 ">
             
@@ -237,67 +238,7 @@ const Business=()=>{
     )
 }
     
-     const Modal=()=>{
-        return(
-                 <div>
-                       <form action="#" class="w-full" method="POST" onSubmit={(e)=>e.preventDefault()}> 
-          
-          <div class="grid grid-cols-1 gap-3">
-  
-            <div class="w-full">
-              <label for="" class="block mb-1 text-sm font-medium text-gray-900">Phone</label>
-              <input type="text" value="{data1['telephone']}" name="phone_number"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full /p-2.5"/>
-            </div>
-            <div class="w-full">
-              <label for="email" class="block mb-1 text-sm font-medium text-gray-900">Email</label>
-              <input type="email" value="{data1['contact-email']}" name="email"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-/2.5"/>
-            </div>
-            <div class="w-full">
-              <label for="" class="block mb-1 text-sm font-medium text-gray-900">Website</label>
-              <input type="text" value="{data1['location-url']}" name="website_url" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full/ p-2.5"/>
-            </div>
-            <h4 class="font-bold">Address</h4>
-  
-            <div class="w-full">
-              <label for="" class="block mb-1 text-sm font-medium text-gray-900">Name</label>
-              <input type="text" value="{data1['location-name']}" name="business_name"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-/full p-2.5"/>
-            </div>
-            <div class="w-full">
-              <label for="" class="block mb-1 text-sm font-medium text-gray-900">Address</label>
-              <input type="text" value="{data1['address1']} {data1['address2']}" name="address"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500/ block w-full p-2.5"/>
-            </div>
-            <div class="w-full">
-              <label for="" class="block mb-1 text-sm font-medium text-gray-900">City</label>
-              <input type="text" value="{data1['town']}" name="city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
-           </div>
-            <div class="w-full">
-              <label for="" class="block mb-1 text-sm font-medium text-gray-900">State</label>
-              <input type="text" value="{data1['region']}" name="state" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
-         </div>
-            <div class="w-full">
-              <label for="" class="block mb-1 text-sm font-medium text-gray-900">Country</label>
-              <input type="text" value=" {data1['country']}" name="country" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
-            </div>
-            <div class="w-full">
-              <label for="" class="block mb-1 text-sm font-medium text-gray-900">Zipcode</label>
-              <input type="text" value="{data1['postcode']}" name="postcode" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"/>
-            </div>
-  
-            <div class="w-full">
-              <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Submit</button>
-            </div>
-  
-  
-          </div>
-      
-        
-              </form>
-                 </div>
-        );
-     }
-    
-        
-          
+     
     
     
     

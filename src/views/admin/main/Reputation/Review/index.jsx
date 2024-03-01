@@ -333,7 +333,8 @@ return(
                                  
  
 
-                                <div class="relative flex flex-col items-start group bg-[white]  p-10 rounded-lg border border-gray-200 pt-15 shadow-xl shadow-gray-300  gap-4 ">                                     
+                                <div class="relative flex flex-col items-start group bg-[white]  p-10 rounded-lg border border-gray-200 pt-15 shadow-xl shadow-gray-300  gap-4 ">
+                                
                                     <div class="w-full flex items-center justify-between mt-0 ">
                                         <div class="flex items-center lg:cols-3 md:cols-6 sm:cols-12">
                                             <div class="">
@@ -355,7 +356,7 @@ return(
                                                 <FaStar/> {item.rating}
                                             </div> 
                                             <div class="flex flex-wrap items-center gap-3 text-[12px] 2xl:text-[15px]">
-                                                <div class="w-full flex gap-3"><i class="fa-solid fa-message text-[15px] mr-2"></i>
+                                                <div class="w-full flex gap-3">
                                                     {/* { item.review!='' && item.review.length > 14 ?(
                                                     {main_columnheader.review.substring(0,30)} ...
                                                         <a href="#!" title="View More" on:click={() =>loadremaining(main_columnheader.review)  }><i class="fa-solid fa-eye"></i></a> 
