@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from 'react';
 
-import Card from 'components/card';
+
 
 import DonutChart from 'components/charts/DonutChart';
 import axios from 'axios';
+import LineChart from 'components/charts/LineChart';
+import {
+  lineChartDataMiniArea1,
+  lineChartOptionsMiniArea1,
+  lineChartDataMiniArea2,
+  lineChartOptionsMiniArea2,
+} from 'variables/charts';
+import Stock from 'views/admin/main/account/billing/components/Stock';
+import Card from './components/card';
 
 const Dashboard = () => {
   const [donutdata, setDonutData] = useState([]);
@@ -89,42 +98,10 @@ const Dashboard = () => {
     setCampaignData(res.data);
   };
 
-  
-
   return (
     <div className="mt-20 h-full w-full gap-[20px]  rounded-[20px] sm:mt-10 xl:flex-row">
-      <div class="mb-2 flex flex-row items-center justify-end gap-2">
-        <div class="flex h-16 w-16 items-center justify-center rounded-full bg-white from-[#ffffff0f] to-white/0 text-3xl text-brand-500 shadow-xl shadow-gray-200 dark:!bg-navy-800 dark:bg-gradient-to-b dark:text-white dark:shadow-darkinset dark:shadow-white/20">
-          <svg
-            stroke="currentColor"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-            height="1em"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* <path fill="none" d="M0 0h24v24H0z"></path> */}
-            <path d="M12 2C8.69 2 6 4.69 6 8c0 4.17 5.76 11.56 6 11.84a.5.5 0 0 0 .71 0C14.24 19.56 20 12.17 20 8c0-3.31-2.69-6-6-6zm0 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0-3a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"></path>
-          </svg>
-        </div>
-        {/* <h4 class="text-base font-medium leading-6 text-navy-700 dark:text-white flex items-center">
-          {' '}
-          Location:{' '}
-        </h4> */}
-
-        <div className=" w-full rounded-xl border !border-gray-200 px-3 text-sm font-medium text-gray-600 outline-none dark:!border-none dark:bg-navy-700 md:w-fit">
-          <select
-            className="h-[45px] w-full rounded-xl text-sm font-medium text-gray-600 outline-none dark:bg-navy-700 md:w-fit md:pr-8 xl:pr-20 "
-            name="location"
-            id="location"
-          >
-            <option value="Chess House Dental">Chess House Dental</option>
-            <option value="Harrow Weald Dental">Harrow Weald Dental</option>
-          </select>
-        </div>
-      </div>
-
-      <Card extra={'w-full pb-[80px] pt-[30px] px-[29px] h-fit xl:h-[500px]'}>
+      <div className="mb-5 mt-10 flex items-center justify-between px-5">
+        <h3 class="text-[#00000] font-[600]">Performance Data</h3>
         <div className="w-full rounded-xl border !border-gray-200 px-3 text-sm font-medium text-gray-600 outline-none dark:!border-none dark:bg-navy-700 md:w-fit">
           <select
             className="h-[45px] w-full rounded-xl text-sm font-medium text-gray-600 outline-none dark:bg-navy-700 md:w-fit md:pr-8 xl:pr-20"
@@ -138,33 +115,335 @@ const Dashboard = () => {
             <option value="9">Last 9 Months</option>
           </select>
         </div>
-
-        <div className="mx-auto mt-3 flex w-full items-center justify-center">
+      </div>
+      <div className="flex gap-4 px-5">
+        <Card extra={'flex-1 '} backgroundcolor={"bg-[#E3F5FF]"}>
           <DonutChart
             title="Organic Forms"
             currentPercentage={donutdata?.organic_forms_percentage}
             pastPercentage={100 - donutdata?.organic_forms_percentage}
           />
+        </Card>
+        <Card extra={'flex-1 ' } backgroundcolor={"bg-[#E5ECF6]"}>
           <DonutChart
             title="Organic Calls"
             currentPercentage={donutdata?.organic_calls_percentage}
             pastPercentage={100 - donutdata?.organic_calls_percentage}
           />
+        </Card>
+        <Card extra={'flex-1'} backgroundcolor={"bg-[#E3F5FF]"}>
           <DonutChart
             title="Paid Forms"
             currentPercentage={donutdata?.paid_forms_percentage}
             pastPercentage={100 - donutdata?.paid_forms_percentage}
           />
+        </Card>
+        <Card extra={'flex-1'} backgroundcolor={"bg-[#E5ECF6]"}>
           <DonutChart
             title="Paid Calls"
             currentPercentage={donutdata?.paid_calls_percentage}
             pastPercentage={100 - donutdata?.paid_calls_percentage}
           />
-        </div>
-      </Card>
-      <div className="mt-3 flex  h-max w-full  gap-[20px] rounded-[20px] xl:flex-row">
-        <Card extra={'w-[60%]  pt-[30px] px-[29px] '}>
-          <div className="flex items-center justify-between">
+        </Card>
+      </div>
+      <div className="mt-3 flex  h-max w-full  gap-[20px] rounded-[20px] xl:flex-row px-5">
+        <Card extra={'w-[40%] pb-[20px] pt-[30px] px-[29px] '}>
+          <div class="flex w-full items-center justify-between pb-0">
+            <span class="text-[#031390] font-[600]">Volume</span>
+            <span class="font-bold">{campaigndata?.volume}</span>
+          </div>
+
+          <div className="">
+            <table className="w-full">
+              <thead className="border-b border-solid border-gray-300">
+                <tr >
+                  <th className="px-[14px] pt-[29px]">
+                    <div className="text-left text-xs font-bold uppercase tracking-wide text-gray-600">
+                      Rank
+                    </div>
+                  </th>
+                  <th className="px-[14px] pt-[29px]">
+                    <div className="text-left text-xs font-bold uppercase tracking-wide text-gray-600">
+                      Name
+                    </div>
+                  </th>
+                  <th className="px-[14px] pt-[29px]">
+                    <div className="text-left text-xs font-bold uppercase tracking-wide text-gray-600"></div>
+                  </th>
+
+                  {/* <th className="px-[14px] pt-[29px]">
+                    <div className="text-left text-xs font-bold uppercase tracking-wide text-gray-600">
+                      Change
+                    </div>
+                  </th> */}
+                </tr>
+              </thead>
+
+              <tbody className="w-full">
+                <tr className="w-full">
+                  <td class="px-6 py-4">
+                    {campaigndata && campaigndata?.organic_desktop && (
+                      <>{campaigndata?.organic_desktop.rank}</>
+                    )}
+                  </td>
+                  <td class=" px-6 py-4  text-sm font-bold text-navy-700 dark:text-white ">
+                    Organic Desktop
+                    {/* <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white mt-auto">
+                      Organic Desktop
+                    </div> */}
+                  </td>
+
+                  <td class="px-6 py-4">
+                    {campaigndata && campaigndata?.organic_desktop && (
+                      <>
+                        {campaigndata?.organic_desktop > 0 ? (
+                          <>
+                            <Stock
+                              growth={campaigndata?.organic_desktop.toString()}
+                              chart={
+                                <LineChart
+                                  chartData={lineChartDataMiniArea1}
+                                  chartOptions={lineChartOptionsMiniArea1}
+                                />
+                              }
+                            />
+                          </>
+                        ) : (
+                          <Stock
+                            growth={campaigndata?.organic_desktop.change.toString()}
+                            chart={
+                              <LineChart
+                                chartData={lineChartDataMiniArea2}
+                                chartOptions={lineChartOptionsMiniArea2}
+                              />
+                            }
+                          />
+                        )}
+                      </>
+                    )}
+                  </td>
+
+                  {/* <td class="px-6 py-4">
+                    {campaigndata && campaigndata?.organic_desktop && (
+                      <>
+                        {campaigndata?.organic_desktop.change}
+                        {campaigndata?.organic_desktop.change > 0 ? (
+                          <i class="fa-solid fa-arrow-up ml-1 text-green-500"></i>
+                        ) : (
+                          <i class="fa-solid fa-arrow-down ml-1 text-red-500"></i>
+                        )}
+                      </>
+                    )}
+                  </td> */}
+                </tr>
+
+                <tr className="w-full">
+                  <td class="px-6 py-4">
+                    {campaigndata && campaigndata?.organic_mobile && (
+                      <>{campaigndata?.organic_mobile.rank}</>
+                    )}
+                  </td>
+                  <td class="px-6 py-4  text-sm font-bold text-navy-700 dark:text-white">
+                      Organic Mobile
+                   
+                  </td>
+                  <td class=" px-6 py-4">
+                    {campaigndata && campaigndata?.organic_mobile && (
+                      <>
+                        {campaigndata?.organic_mobile.change > 0 ? (
+                          <>
+                            <Stock
+                              growth={campaigndata?.organic_mobile.change.toString()}
+                              chart={
+                                <LineChart
+                                  chartData={lineChartDataMiniArea1}
+                                  chartOptions={lineChartOptionsMiniArea1}
+                                />
+                              }
+                            />
+                          </>
+                        ) : (
+                          <Stock
+                            growth={campaigndata?.organic_mobile.change.toString()}
+                            chart={
+                              <LineChart
+                                chartData={lineChartDataMiniArea2}
+                                chartOptions={lineChartOptionsMiniArea2}
+                              />
+                            }
+                          />
+                        )}
+                      </>
+                    )}
+                  </td>
+                  {/* <td class="px-6 py-4">
+                    {campaigndata && campaigndata?.organic_mobile && (
+                      <>
+                        {campaigndata?.organic_mobile.change}
+                        {campaigndata?.organic_mobile.change > 0 ? (
+                          <i class="fa-solid fa-arrow-up ml-1 text-green-500"></i>
+                        ) : (
+                          <i class="fa-solid fa-arrow-down ml-1 text-red-500"></i>
+                        )}
+                      </>
+                    )}
+                  </td> */}
+                </tr>
+
+                <tr className="w-full">
+                  <td class="px-6 py-4">
+                    {campaigndata && campaigndata?.local_pack ? (
+                      campaigndata?.local_pack.rank
+                    ) : (
+                      <>-</>
+                    )}
+                  </td>
+                  <td class="px-6 py-4  text-sm font-bold text-navy-700 dark:text-white">
+                      Local Pack
+                  
+                  </td>
+                  <td class=" px-6 py-4">
+                    {campaigndata && campaigndata?.local_pack && (
+                      <>
+                        {campaigndata?.local_pack.change > 0 ? (
+                          <>
+                            <Stock
+                              growth={campaigndata?.local_pack.change.toString()}
+                              chart={
+                                <LineChart
+                                  chartData={lineChartDataMiniArea1}
+                                  chartOptions={lineChartOptionsMiniArea1}
+                                />
+                              }
+                            />
+                          </>
+                        ) :campaigndata?.local_pack.change < 0? (
+                          <Stock
+                            growth={campaigndata?.local_pack.change.toString()}
+                            chart={
+                              <LineChart
+                                chartData={lineChartDataMiniArea2}
+                                chartOptions={lineChartOptionsMiniArea2}
+                              />
+                            }
+                          />
+                        ):(<>-</>)}
+                      </>
+                    )}
+                  </td>
+                  {/* <td class="px-6 py-4">
+                    {' '}
+                    {campaigndata && campaigndata?.local_pack && (
+                      <>
+                        {campaigndata?.local_pack.change}
+                        {campaigndata?.local_pack.change > 0 ? (
+                          <i class="fa-solid fa-arrow-up ml-1 text-green-500"></i>
+                        ) : (
+                          <i class="fa-solid fa-arrow-down ml-1 text-red-500"></i>
+                        )}
+                      </>
+                    )}
+                  </td> */}
+                </tr>
+
+                <tr className="w-full">
+                  <td class="px-6 py-4">
+                    {campaigndata && campaigndata?.local_finder && (
+                      <>
+                        {campaigndata?.local_finder?.map((item) => (
+                          <>{item.rank}</>
+                        ))}
+                      </>
+                    )}
+                  </td>
+                  <td class="px-6 py-4  text-sm font-bold text-navy-700 dark:text-white">
+                      Local Finder
+                    
+                  </td>
+                  <td class=" px-6 py-4">
+
+                   {
+                    campaigndata && campaigndata?.local_finder &&(
+                      <>
+                      {
+                       campaigndata?.local_finder?.map((item)=>(
+                        <>
+                        {
+                          item?.change>0?(<>
+                            <Stock
+                              growth={item?.change.toString()}
+                              chart={
+                                <LineChart
+                                  chartData={lineChartDataMiniArea1}
+                                  chartOptions={lineChartOptionsMiniArea1}
+                                />
+                              }
+                            />
+                          
+                          
+                          
+                          </>):(<>
+                            <Stock
+                              growth={item?.change.toString()}
+                              chart={
+                                <LineChart
+                                  chartData={lineChartDataMiniArea2}
+                                  chartOptions={lineChartOptionsMiniArea2}
+                                />
+                              }
+                            />
+                          
+                          
+                          
+                          </>)
+                        }
+                        
+                        
+                        
+                        </>
+                       ))
+                      }
+                      
+                      
+                      </>
+                    )
+                   }
+
+
+
+
+
+
+                  </td>
+                  {/* <td class="px-6 py-4">
+                    {campaigndata && campaigndata?.local_finder && (
+                      <>
+                        {campaigndata?.local_finder?.map((item) => (
+                          <>
+                            {item.change && (
+                              <>
+                                {item?.change}
+                                {item?.change > 0 ? (
+                                  <i class="fa-solid fa-arrow-up ml-1 text-green-500"></i>
+                                ) : (
+                                  <i class="fa-solid fa-arrow-down ml-1 text-red-500"></i>
+                                )}
+                                {item?.gained && <>+</>}
+                              </>
+                            )}
+                          </>
+                        ))}
+                      </>
+                    )}
+                  </td> */}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </Card>
+        <Card extra={'w-[60%] pb-[20px] pt-[30px] px-[29px] h-max'}>
+        <div className="flex items-center justify-between">
+          <div class="text-[#031390] font-[600]">Performance data</div>
             <div className="w-full rounded-xl border !border-gray-200 px-3 text-sm font-medium text-gray-600 outline-none dark:!border-none dark:bg-navy-700 md:w-fit">
               <select
                 className="h-[45px] w-full rounded-xl text-sm font-medium text-gray-600 outline-none dark:bg-navy-700 md:w-fit md:pr-8 xl:pr-20"
@@ -265,276 +544,8 @@ const Dashboard = () => {
               </tbody>
             </table>
           </div>
-        </Card>
-        <Card extra={'w-[40%] pb-[20px] pt-[30px] px-[29px] '}>
-          <div>
-            <input
-              type="checkbox"
-              class='undefined relative h-5 w-10 appearance-none rounded-[20px] bg-[#e0e5f2] outline-none transition 
-      duration-[0.5s] before:absolute before:top-[50%] before:h-4 before:w-4 before:translate-x-[2px] before:translate-y-[-50%]
-      before:rounded-[20px] before:bg-white before:shadow-[0_2px_5px_rgba(0,_0,_0,_.2)] before:transition
-      before:content-[""] checked:bg-brand-500
-      checked:before:translate-x-[22px] hover:cursor-pointer dark:bg-white/5 dark:checked:bg-brand-400'
-              name="weekly"
-              id="weekly"
-            />
-          </div>
 
-          <div class="mt-3 flex w-full items-center justify-between border-b border-solid border-gray-300 pb-3">
-            <span class="text-black text-sm font-semibold leading-[13.41px]">
-              {campaigndata?.keywords}
-            </span>{' '}
-            <span class="text-[20px] leading-tight text-blue-500">
-              <i class="fa-solid fa-angle-up"></i>
-            </span>
-          </div>
-          <div class="flex w-full items-center justify-between border-b border-solid border-gray-300 pb-3">
-            <span class="text-black text-sm font-semibold leading-[13.41px]">
-              Volume
-            </span>{' '}
-            <span class="font-bold">{campaigndata?.volume}</span>
-          </div>
 
-          <div className="overflow-x-scroll 2xl:overflow-x-hidden">
-            <table className="w-full">
-              <thead>
-                <tr>
-                  <th className="px-[14px] pt-[29px]">
-                    <div className="text-left text-xs font-bold uppercase tracking-wide text-gray-600"></div>
-                  </th>
-                  <th className="px-[14px] pt-[29px]">
-                    <div className="text-left text-xs font-bold uppercase tracking-wide text-gray-600">
-                      Rank
-                    </div>
-                  </th>
-                  <th className="px-[14px] pt-[29px]">
-                    <div className="text-left text-xs font-bold uppercase tracking-wide text-gray-600">
-                      Change
-                    </div>
-                  </th>
-                </tr>
-              </thead>
-
-              <tbody className="w-full">
-                <tr className="w-full">
-                  <td class="flex px-6 py-4">
-                  <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
-                  <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      x="0px"
-                      y="0px"
-                      class="mr-1 w-6"
-                      viewBox="0 0 48 48"
-                    >
-                      <path
-                        fill="#fbc02d"
-                        d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12	s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20	s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
-                      ></path>
-                      <path
-                        fill="#e53935"
-                        d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039	l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
-                      ></path>
-                      <path
-                        fill="#4caf50"
-                        d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36	c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
-                      ></path>
-                      <path
-                        fill="#1565c0"
-                        d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571	c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
-                      ></path>
-                    </svg>
-
-                    Organic Desktop
-                    </div>
-                   
-                  </td>
-                  <td class="px-6 py-4">
-                    {campaigndata && campaigndata?.organic_desktop && (
-                      <>{campaigndata?.organic_desktop.rank}</>
-                    )}
-                  </td>
-                  <td class="px-6 py-4">
-                    {campaigndata && campaigndata?.organic_desktop && (
-                      <>
-                        {campaigndata?.organic_desktop.change}
-                        {campaigndata?.organic_desktop.change > 0 ? (
-                          <i class="fa-solid fa-arrow-up ml-1 text-green-500"></i>
-                        ) : (
-                          <i class="fa-solid fa-arrow-down ml-1 text-red-500"></i>
-                        )}
-                      </>
-                    )}
-                  </td>
-                </tr>
-
-                <tr className="w-full">
-                  <td class="flex px-6 py-4">
-                  <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
-
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      x="0px"
-                      y="0px"
-                      class="mr-1 w-6"
-                      viewBox="0 0 48 48"
-                    >
-                      <path
-                        fill="#fbc02d"
-                        d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12	s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20	s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
-                      ></path>
-                      <path
-                        fill="#e53935"
-                        d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039	l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
-                      ></path>
-                      <path
-                        fill="#4caf50"
-                        d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36	c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
-                      ></path>
-                      <path
-                        fill="#1565c0"
-                        d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571	c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
-                      ></path>
-                    </svg>
-                    Organic Mobile
-                    </div>
-                  </td>
-                  <td class="px-6 py-4">
-                    {campaigndata && campaigndata?.organic_mobile && (
-                      <>{campaigndata?.organic_mobile.rank}</>
-                    )}
-                  </td>
-                  <td class="px-6 py-4">
-                    {campaigndata && campaigndata?.organic_mobile && (
-                      <>
-                        {campaigndata?.organic_mobile.change}
-                        {campaigndata?.organic_mobile.change > 0 ? (
-                          <i class="fa-solid fa-arrow-up ml-1 text-green-500"></i>
-                        ) : (
-                          <i class="fa-solid fa-arrow-down ml-1 text-red-500"></i>
-                        )}
-                      </>
-                    )}
-                  </td>
-                </tr>
-
-                <tr className="w-full">
-                  <td class="flex px-6 py-4">
-                  <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
-
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      x="0px"
-                      y="0px"
-                      class="mr-1 w-6"
-                      viewBox="0 0 48 48"
-                    >
-                      <path
-                        fill="#fbc02d"
-                        d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12	s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20	s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
-                      ></path>
-                      <path
-                        fill="#e53935"
-                        d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039	l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
-                      ></path>
-                      <path
-                        fill="#4caf50"
-                        d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36	c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
-                      ></path>
-                      <path
-                        fill="#1565c0"
-                        d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571	c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
-                      ></path>
-                    </svg>
-                    Local Pack
-                    </div>
-                  </td>
-                  <td class="px-6 py-4">
-                    {campaigndata && campaigndata?.local_pack ? (
-                      campaigndata?.local_pack.rank
-                    ) : (
-                      <>-</>
-                    )}
-                  </td>
-                  <td class="px-6 py-4">
-                    {' '}
-                    {campaigndata && campaigndata?.local_pack && (
-                      <>
-                        {campaigndata?.local_pack.change}
-                        {campaigndata?.local_pack.change > 0 ? (
-                          <i class="fa-solid fa-arrow-up ml-1 text-green-500"></i>
-                        ) : (
-                          <i class="fa-solid fa-arrow-down ml-1 text-red-500"></i>
-                        )}
-                      </>
-                    )}
-                  </td>
-                </tr>
-
-                <tr className="w-full">
-                  <td class="flex px-6 py-4">
-                  <div className="flex items-center text-sm font-bold text-navy-700 dark:text-white">
-
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      x="0px"
-                      y="0px"
-                      class="mr-1 w-6"
-                      viewBox="0 0 48 48"
-                    >
-                      <path
-                        fill="#fbc02d"
-                        d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12	s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20	s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
-                      ></path>
-                      <path
-                        fill="#e53935"
-                        d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039	l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
-                      ></path>
-                      <path
-                        fill="#4caf50"
-                        d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36	c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
-                      ></path>
-                      <path
-                        fill="#1565c0"
-                        d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571	c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
-                      ></path>
-                    </svg>
-                    Local Finder
-                    </div>
-                  </td>
-                  <td class="px-6 py-4">
-                    {campaigndata && campaigndata?.local_finder && (
-                      <>
-                        {campaigndata?.local_finder?.map((item) => (
-                          <>{item.rank}</>
-                        ))}
-                      </>
-                    )}
-                  </td>
-                  <td class="px-6 py-4">
-                    {campaigndata && campaigndata?.local_finder && (
-                      <>
-                        {campaigndata?.local_finder?.map((item) => (
-                          <>
-                            {item.change && (
-                              <>
-                                {item?.change}
-                                {item?.change > 0 ? (
-                                  <i class="fa-solid fa-arrow-up ml-1 text-green-500"></i>
-                                ) : (
-                                  <i class="fa-solid fa-arrow-down ml-1 text-red-500"></i>
-                                )}
-                                {item?.gained && <>+</>}
-                              </>
-                            )}
-                          </>
-                        ))}
-                      </>
-                    )}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
         </Card>
       </div>
     </div>
