@@ -46,7 +46,7 @@ const SeoInsights = () => {
   }, []);
 
   let positional_movement = '';
-  let organicRank = 5;
+
 
   return (
     <div className="w-full p-0">
