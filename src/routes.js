@@ -77,6 +77,7 @@ import ReviewMe from "views/admin/main/Reputation/ReviewMe";
 import Contact2 from "views/admin/main/marketing/Contact";
 import Email from "views/admin/main/marketing/Email/Email";
 import VerifiedLeads from "views/admin/dashboards/verfiednewleads";
+import BusinessListings from "views/admin/main/business-listings";
 
 
 const routes = [
@@ -131,6 +132,14 @@ const routes = [
         layout: "/admin",
         path: "/nfts/business-info",
         component: <Business />,
+        icon: <FaBusinessTime className="text-inherit h-5 w-5" />,
+        secondary: true,
+  },
+  {
+    name: "Business-Listings",
+        layout: "/admin",
+        path: "/nfts/business-listings",
+        component: <BusinessListings />,
         icon: <FaBusinessTime className="text-inherit h-5 w-5" />,
         secondary: true,
   },
