@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { Portal } from "@chakra-ui/portal";
 import Navbar from "components/navbar";
@@ -12,6 +12,7 @@ export default function Admin(props) {
   const [open, setOpen] = React.useState(true);
   const [hovered, setHovered] = React.useState(false);
   const [currentRoute, setCurrentRoute] = React.useState("Main Dashboard");
+  const [mainlocation,setMainlocation]=useState("chess")
   React.useEffect(() => {
     window.addEventListener("resize", () =>
       window.innerWidth < 1200 ? setOpen(false) : setOpen(true)
@@ -80,6 +81,7 @@ export default function Admin(props) {
         setHovered={setHovered}
         mini={props.mini}
         onClose={() => setOpen(false)}
+        mainlocation={mainlocation}
       />
       {/* Navbar & Main Content */}
       <div className="h-full w-full font-dm dark:bg-background-900">
@@ -118,6 +120,8 @@ export default function Admin(props) {
                 hovered={hovered}
                 mini={props.mini}
                 setMini={props.setMini}
+                mainlocation={mainlocation}
+                setMainlocation={setMainlocation}
                 {...rest}
               />
             <div className=" min-h-screen p-2  md:p-2">

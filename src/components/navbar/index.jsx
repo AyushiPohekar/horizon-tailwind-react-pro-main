@@ -29,6 +29,7 @@ const Navbar = (props) => {
   const [darkmode, setDarkmode] = React.useState(
     document.body.classList.contains('dark')
   );
+  console.log(props?.mainlocation)
   return (
     <nav
       className={`mt-1 flex flex-row flex-wrap items-center justify-between  bg-white/30 transition-all w-full   p-2 backdrop-blur-xl shadow-xl shadow-shadow-500 dark:bg-[#0b14374d] md:right-[30px] md:top-4 xl:top-[20px]`}
@@ -62,7 +63,10 @@ const Navbar = (props) => {
            
             className="font-bold capitalize hover:text-navy-700 dark:hover:text-white"
           >
-          Good day, Chess House Dental Practice
+            {
+              props?.mainlocation==="chess"? "Good day, Chess House Dental Practice":"Good day, Harrow Weald Dental Practice"
+            }
+         
           </div>
         </p>
       </div>
@@ -73,9 +77,10 @@ const Navbar = (props) => {
             className="h-[45px] w-full rounded-xl text-sm font-medium text-gray-600 outline-none dark:bg-navy-700 md:w-fit md:pr-8 xl:pr-20 "
             name="location"
             id="location"
+            onChange={(e)=>props.setMainlocation(e.target.value)}
           >
-            <option value="Chess House Dental">Chess House Dental</option>
-            <option value="Harrow Weald Dental">Harrow Weald Dental</option>
+            <option value="chess">Chess House Dental</option>
+            <option value="harrow">Harrow Weald Dental</option>
           </select>
         </div>
         <div className='flex gap-2 items-center'>

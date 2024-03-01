@@ -5,7 +5,7 @@ const Stock = (props) => {
   const { sum, name, chart, growth } = props;
 
   return (
-    <div className="z-[0.9] flex h-[40px] items-center justify-between mt-5 w-full">
+    <div className="z-[0.9] flex h-[30px] items-center justify-between mt-5 w-full">
       {/* left side */}
       <div>
         <h4 className="font-medium text-gray-600"> {name} </h4>

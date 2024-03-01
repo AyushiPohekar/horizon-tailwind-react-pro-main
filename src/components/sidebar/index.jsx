@@ -64,6 +64,7 @@ function SidebarHorizon(props) {
                       : "hidden"
                   }`}
                 >
+                  
                   Dentapro <span className="font-medium">Digital</span>
                 </div>
                 <div
