@@ -21,10 +21,10 @@ function SidebarHorizon(props) {
     <div
       className={`sm:none ${
         mini === false
-          ? "w-[285px]"
+          ? "w-[235px]"
           : mini === true && hovered === true
-          ? "w-[285px]"
-          : "w-[285px] xl:!w-[120px]"
+          ? "w-[235px]"
+          : "w-[235px] xl:!w-[100px]"
       } duration-175 linear fixed !z-50 min-h-full transition-all md:!z-50 lg:!z-50 xl:!z-0 ${
         variant === "auth" ? "xl:hidden" : "xl:block"
       } ${open ? "" : "-translate-x-[105%]"}`}
@@ -54,7 +54,7 @@ function SidebarHorizon(props) {
               >
                 <HiX />
               </span>
-              <div className={`ml-[52px] mt-[44px] flex items-center `}>
+              <div className={`ml-[30px] mt-[44px] flex items-center `}>
                 <div
                   className={`mt-1 ml-1 h-2.5 font-poppins text-[18px] font-bold uppercase text-navy-700 dark:text-white ${
                     mini === false
